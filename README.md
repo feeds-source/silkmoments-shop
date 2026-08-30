@@ -1,6 +1,6 @@
 # Silk Moments
 
-Femme silk atelier shop (TanStack Start PWA) and the Shopify Online Store 2.0 theme **1.2.0**.
+Femme silk atelier shop (TanStack Start PWA) and the Shopify Online Store 2.0 theme **1.3.0**.
 
 ## Shopify theme
 

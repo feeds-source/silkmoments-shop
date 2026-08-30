@@ -1,6 +1,6 @@
 <section class="section">
   <div class="wrap">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap">
       <div>
         <p class="kicker">{{ section.settings.kicker }}</p>
         <h2>{{ section.settings.title }}</h2>
@@ -8,14 +8,38 @@
       <a class="gold" href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}">{{ 'general.view_all' | t }}</a>
     </div>
     <div class="grid-bento">
+      {% assign shown = 0 %}
       {% if section.settings.collection != blank %}
         {% for product in section.settings.collection.products limit: section.settings.limit %}
           {% render 'product-card', product: product %}
+          {% assign shown = shown | plus: 1 %}
         {% endfor %}
-      {% else %}
+      {% endif %}
+      {% if shown == 0 %}
+        {% for product in collections.all.products %}
+          {% if product.tags contains 'Exotic' or product.tags contains 'featured' or product.tags contains 'Best seller' or product.tags.size > 0 %}
+            {% render 'product-card', product: product %}
+            {% assign shown = shown | plus: 1 %}
+            {% if shown >= section.settings.limit %}{% break %}{% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if shown == 0 %}
         {% for product in collections.all.products limit: section.settings.limit %}
           {% render 'product-card', product: product %}
+          {% assign shown = shown | plus: 1 %}
         {% endfor %}
+      {% endif %}
+      {% if shown == 0 %}
+        {% render 'demo-card', image: 'everyday-soft-bra.jpg', video: 'everyday-soft-bra.mp4', title: 'Everyday Soft Cup Bra', cat: 'Bras', price: '$42', tag: 'Best seller', wide: true %}
+        {% render 'demo-card', image: 'ultimate-tshirt-bra.jpg', video: 'ultimate-tshirt-bra.mp4', title: 'Ultimate T-Shirt Bra', cat: 'Bras', price: '$48', tag: 'New' %}
+        {% render 'demo-card', image: 'lace-balconette-set.jpg', video: 'lace-balconette-set.mp4', title: 'Lace Balconette Set', cat: 'Bra Sets', price: '$78', tag: 'Set' %}
+        {% render 'demo-card', image: 'ruby-babydoll.jpg', video: 'ruby-babydoll.mp4', title: 'Ruby Lace Babydoll', cat: 'Babydoll', price: '$88', tag: 'Babydoll' %}
+        {% render 'demo-card', image: 'satin-night-set.jpg', video: 'satin-night-set.mp4', title: 'Satin Night Cami Set', cat: 'Short Nighty', price: '$64', tag: 'Night' %}
+        {% render 'demo-card', image: 'noir-teddy.jpg', video: 'noir-teddy.mp4', title: 'Noir Lace Teddy', cat: 'Teddies', price: '$98', tag: 'Teddy' %}
+        {% render 'demo-card', image: 'mesh-bodysuit.jpg', video: 'mesh-bodysuit.mp4', title: 'Mesh Contour Bodysuit', cat: 'Teddies', price: '$88', tag: 'Exotic' %}
+        {% render 'demo-card', image: 'ivory-bridal-set.jpg', video: 'ivory-bridal-set.mp4', title: 'Ivory Pearl Bridal Set', cat: 'Bridal', price: '$148', tag: 'Bridal' %}
+        {% render 'demo-card', image: 'emerald-bustier.jpg', video: 'emerald-bustier.mp4', title: 'Emerald Silk Bustier', cat: 'Corsetry', price: '$128', tag: 'Corset' %}
       {% endif %}
     </div>
   </div>
@@ -28,7 +52,7 @@
     { "type": "text", "id": "kicker", "label": "Kicker", "default": "Exotic collection" },
     { "type": "text", "id": "title", "label": "Title", "default": "Lingerie in motion" },
     { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "limit", "min": 3, "max": 12, "step": 1, "label": "Products", "default": 8 }
+    { "type": "range", "id": "limit", "min": 3, "max": 12, "step": 1, "label": "Products", "default": 9 }
   ],
   "presets": [{ "name": "Featured bento" }]
 }

@@ -9,6 +9,10 @@
       {% else %}
         {{ 'product-1' | placeholder_svg_tag }}
       {% endif %}
+      {% assign card_video = product.media | where: 'media_type', 'video' | first %}
+      {% if card_video %}
+        {{ card_video | video_tag: image_size: '900x', autoplay: true, loop: true, muted: true, controls: false, class: 'motion-video' }}
+      {% endif %}
       {% if product.tags.size > 0 %}
         <span class="tag">{{ product.tags.first }}</span>
       {% endif %}

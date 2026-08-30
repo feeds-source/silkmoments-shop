@@ -10,26 +10,44 @@
         <p class="muted" style="margin-top:1rem;max-width:22rem">Jewel-tone lingerie, night, and lounge. Cash on delivery worldwide. A printable receipt at every order.</p>
       </div>
       <div class="grid-footer-nav">
-        {% for block in section.blocks %}
-          <div {{ block.shopify_attributes }}>
-            <h3>{{ block.settings.title }}</h3>
-            <ul>
-              {% for link in block.settings.menu.links %}
-                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {% else %}
-                {% for collection in collections limit: 8 %}
-                  {% unless collection.handle == 'frontpage' %}
-                    <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
-                  {% endunless %}
-                {% endfor %}
-              {% endfor %}
-            </ul>
-          </div>
-        {% endfor %}
+        <div>
+          <h3>Night</h3>
+          <ul>
+            <li><a href="{{ collections.babydoll.url | default: routes.all_products_collection_url }}">Babydoll</a></li>
+            <li><a href="{{ collections['short-nighty'].url | default: routes.all_products_collection_url }}">Short Nighty</a></li>
+            <li><a href="{{ collections['long-nighty'].url | default: routes.all_products_collection_url }}">Long Nighty</a></li>
+            <li><a href="{{ collections.gowns.url | default: routes.all_products_collection_url }}">Gowns</a></li>
+            <li><a href="{{ collections.teddies.url | default: routes.all_products_collection_url }}">Teddies</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Body</h3>
+          <ul>
+            <li><a href="{{ collections.bras.url | default: routes.all_products_collection_url }}">Bras</a></li>
+            <li><a href="{{ collections['bra-sets'].url | default: routes.all_products_collection_url }}">Bra Sets</a></li>
+            <li><a href="{{ collections.panties.url | default: routes.all_products_collection_url }}">Panties</a></li>
+            <li><a href="{{ collections.camisole.url | default: routes.all_products_collection_url }}">Camisole</a></li>
+            <li><a href="{{ collections.corsetry.url | default: routes.all_products_collection_url }}">Corsetry</a></li>
+            <li><a href="{{ collections.hosiery.url | default: routes.all_products_collection_url }}">Hosiery</a></li>
+            <li><a href="{{ collections['body-stockings'].url | default: routes.all_products_collection_url }}">Body Stockings</a></li>
+            <li><a href="{{ collections.shapewear.url | default: routes.all_products_collection_url }}">Shapewear</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>After dusk</h3>
+          <ul>
+            <li><a href="{{ collections.bridal.url | default: routes.all_products_collection_url }}">Bridal</a></li>
+            <li><a href="{{ collections.swim.url | default: routes.all_products_collection_url }}">Swim</a></li>
+            <li><a href="{{ collections.loungewear.url | default: routes.all_products_collection_url }}">Loungewear</a></li>
+            <li><a href="{{ collections.resort.url | default: routes.all_products_collection_url }}">Resort</a></li>
+            <li><a href="{{ collections.thermal.url | default: routes.all_products_collection_url }}">Thermal</a></li>
+            <li><a href="{{ collections.accessories.url | default: routes.all_products_collection_url }}">Accessories</a></li>
+          </ul>
+        </div>
         <div>
           <h3>House</h3>
           <ul>
-            <li><a href="{{ pages.about.url }}">The atelier</a></li>
+            <li><a href="{{ pages.about.url | default: pages['the-atelier'].url }}">The atelier</a></li>
             <li><a href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a></li>
             <li><a href="{{ pages.contact.url }}">Contact</a></li>
             <li><a href="{{ routes.account_url }}">Orders</a></li>
@@ -51,22 +69,7 @@
 {% schema %}
 {
   "name": "Footer",
-  "blocks": [
-    {
-      "type": "menu",
-      "name": "Menu column",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "Night" },
-        { "type": "link_list", "id": "menu", "label": "Menu" }
-      ]
-    }
-  ],
-  "default": {
-    "blocks": [
-      { "type": "menu", "settings": { "title": "Night" } },
-      { "type": "menu", "settings": { "title": "Body" } },
-      { "type": "menu", "settings": { "title": "After dusk" } }
-    ]
-  }
+  "settings": [],
+  "presets": [{ "name": "Footer" }]
 }
 {% endschema %}

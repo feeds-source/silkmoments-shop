@@ -1,0 +1,23 @@
+<article class="product-tile{% if wide %} span-wide{% endif %}">
+  <a href="{{ routes.all_products_collection_url }}" class="card-media-link">
+    <div class="card-media media-fill">
+      <img class="ken" src="{{ image | asset_url }}" alt="{{ title | escape }}" width="900" height="1200">
+      {% if video != blank %}
+        <video class="motion-video" autoplay muted loop playsinline poster="{{ image | asset_url }}" aria-hidden="true">
+          <source src="{{ video | asset_url }}" type="video/mp4">
+        </video>
+      {% endif %}
+      {% if tag != blank %}
+        <span class="tag">{{ tag }}</span>
+      {% endif %}
+    </div>
+  </a>
+  <a href="{{ routes.all_products_collection_url }}" class="card-body">
+    <p class="cat">{{ cat }}</p>
+    <h3>{{ title }}</h3>
+    <p class="price">{{ price }}</p>
+  </a>
+  <div class="card-actions">
+    <a class="btn" href="{{ routes.all_products_collection_url }}">{{ 'products.add' | t }}</a>
+  </div>
+</article>

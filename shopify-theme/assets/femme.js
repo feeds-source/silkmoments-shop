@@ -6,13 +6,22 @@
     menuBtn.setAttribute("aria-expanded", String(open));
   });
 
-  const slides = document.querySelectorAll("[data-campaign-slide]");
+  const media = document.querySelectorAll("[data-campaign-media]");
+  const copies = document.querySelectorAll("[data-campaign-copy]");
   const dots = document.querySelectorAll("[data-campaign-dot]");
-  if (slides.length) {
+  const count = media.length;
+  if (count) {
     let i = 0;
     const show = (n) => {
-      i = n % slides.length;
-      slides.forEach((el, idx) => {
+      i = ((n % count) + count) % count;
+      media.forEach((el, idx) => {
+        el.hidden = idx !== i;
+        el.querySelectorAll("video").forEach((v) => {
+          if (idx === i) v.play().catch(() => {});
+          else v.pause();
+        });
+      });
+      copies.forEach((el, idx) => {
         el.hidden = idx !== i;
       });
       dots.forEach((el, idx) => el.classList.toggle("is-on", idx === i));

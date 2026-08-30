@@ -4,11 +4,13 @@
   {% else %}
     <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="{{ section.settings.title | escape }}" width="1600" height="2000">
   {% endif %}
-  {% if section.settings.video_url != blank %}
-    <video class="motion-video" autoplay muted loop playsinline>
-      <source src="{{ section.settings.video_url }}" type="video/mp4">
-    </video>
+  {% assign hero_video = section.settings.video_url %}
+  {% if hero_video == blank %}
+    {% assign hero_video = 'hero.mp4' | asset_url %}
   {% endif %}
+  <video class="motion-video" autoplay muted loop playsinline poster="{{ 'hero.jpg' | asset_url }}" aria-hidden="true">
+    <source src="{{ hero_video }}" type="video/mp4">
+  </video>
   <div class="hero-veil"></div>
   <div class="hero__copy wrap">
     <p class="kicker">{{ section.settings.kicker }}</p>
@@ -28,7 +30,7 @@
     { "type": "text", "id": "button_label", "label": "Button", "default": "Shop the house" },
     { "type": "url", "id": "button_link", "label": "Button link" },
     { "type": "image_picker", "id": "image", "label": "Poster" },
-    { "type": "text", "id": "video_url", "label": "MP4 URL (optional)" }
+    { "type": "text", "id": "video_url", "label": "MP4 URL (blank uses hero.mp4)" }
   ],
   "presets": [{ "name": "Cinematic hero" }]
 }

@@ -1,4 +1,4 @@
-# Femme Silk Atelier — Shopify theme 1.2.0
+# Femme Silk Atelier — Shopify theme 1.3.0
 
 Online Store 2.0 boutique theme. Folders at **repo / zip root**.
 
@@ -6,7 +6,7 @@ Online Store 2.0 boutique theme. Folders at **repo / zip root**.
 assets/  blocks/  config/  layout/  locales/  sections/  snippets/  templates/
 ```
 
-Theme **1.2.0** includes size-guide visual charts, fit lab, and product cards that keep names off the size menu.
+Theme **1.3.0** homepage matches the atelier shop: cinematic hero video, rotating campaign films, aisles, exotic collection in motion, and the Night / Body / After dusk footer.
 
 ## Install
 
