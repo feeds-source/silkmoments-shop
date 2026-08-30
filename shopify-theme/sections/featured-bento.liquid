@@ -1,0 +1,35 @@
+<section class="section">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem">
+      <div>
+        <p class="kicker">{{ section.settings.kicker }}</p>
+        <h2>{{ section.settings.title }}</h2>
+      </div>
+      <a class="gold" href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}">{{ 'general.view_all' | t }}</a>
+    </div>
+    <div class="grid-bento">
+      {% if section.settings.collection != blank %}
+        {% for product in section.settings.collection.products limit: section.settings.limit %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% else %}
+        {% for product in collections.all.products limit: section.settings.limit %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured bento",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Exotic collection" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Lingerie in motion" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "min": 3, "max": 12, "step": 1, "label": "Products", "default": 8 }
+  ],
+  "presets": [{ "name": "Featured bento" }]
+}
+{% endschema %}

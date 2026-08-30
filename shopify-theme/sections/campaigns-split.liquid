@@ -1,0 +1,47 @@
+<section class="grid-campaigns">
+  {% for block in section.blocks %}
+    <a class="group" href="{{ block.settings.link | default: collections[block.settings.collection].url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+      {% if block.settings.image %}
+        {{ block.settings.image | image_url: width: 1600 | image_tag: class: 'ken-hover' }}
+      {% else %}
+        <img class="ken-hover" src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}" width="1400" height="1000">
+      {% endif %}
+      <div class="hero-veil"></div>
+      <div class="copy">
+        <p class="kicker">{{ block.settings.kicker }}</p>
+        <h3>{{ block.settings.title }}</h3>
+      </div>
+    </a>
+  {% endfor %}
+</section>
+
+{% schema %}
+{
+  "name": "Campaigns split",
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Panel",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Sleep" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Moonlit satin" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback", "label": "Asset filename", "default": "sleep.jpg" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Campaigns split",
+      "blocks": [
+        { "type": "panel", "settings": { "kicker": "Sleep", "title": "Moonlit satin", "fallback": "sleep.jpg" } },
+        { "type": "panel", "settings": { "kicker": "Lingerie", "title": "Ruby lace night", "fallback": "lingerie.jpg" } },
+        { "type": "panel", "settings": { "kicker": "Lounge", "title": "Emerald after dusk", "fallback": "lounge.jpg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

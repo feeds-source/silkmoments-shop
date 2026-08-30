@@ -1,0 +1,63 @@
+<section class="campaign">
+  {% for block in section.blocks %}
+    <div data-campaign-slide {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
+      {% if block.settings.image %}
+        {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'ken' }}
+      {% else %}
+        <img class="ken" src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}" width="1600" height="1000">
+      {% endif %}
+      {% if block.settings.video_url != blank %}
+        <video class="motion-video" autoplay muted loop playsinline>
+          <source src="{{ block.settings.video_url }}" type="video/mp4">
+        </video>
+      {% endif %}
+    </div>
+  {% endfor %}
+  <div class="hero-veil"></div>
+  <div class="campaign__copy wrap">
+    {% for block in section.blocks %}
+      <div data-campaign-slide {% unless forloop.first %}hidden{% endunless %}>
+        <p class="kicker">{{ block.settings.kicker }}</p>
+        <h2>{{ block.settings.title }}</h2>
+        <a class="btn" href="{{ block.settings.link | default: routes.all_products_collection_url }}" style="margin-top:1.5rem;width:fit-content">
+          Shop {{ block.settings.kicker }}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="dots">
+    {% for block in section.blocks %}
+      <button type="button" data-campaign-dot class="{% if forloop.first %}is-on{% endif %}" aria-label="{{ block.settings.title }}">{{ forloop.index }}</button>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Campaign rotator",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Sleep" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Moonlit satin" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback", "label": "Asset filename", "default": "sleep.jpg" },
+        { "type": "text", "id": "video_url", "label": "MP4 URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Campaign rotator",
+      "blocks": [
+        { "type": "slide", "settings": { "kicker": "Sleep", "title": "Moonlit satin", "fallback": "sleep.jpg" } },
+        { "type": "slide", "settings": { "kicker": "Lingerie", "title": "Ruby lace night", "fallback": "lingerie.jpg" } },
+        { "type": "slide", "settings": { "kicker": "Lounge", "title": "Emerald after dusk", "fallback": "lounge.jpg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

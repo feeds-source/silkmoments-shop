@@ -1,0 +1,11 @@
+<section class="wrap section">
+  <p class="kicker">Account</p>
+  <h1 class="display" style="font-style:italic">{{ customer.name }}</h1>
+  <p class="muted"><a class="gold" href="{{ routes.account_logout_url }}">Sign out</a> · <a class="gold" href="{{ routes.account_addresses_url }}">Addresses</a></p>
+  <h2 class="display" style="margin-top:2rem">Orders</h2>
+  {% for order in customer.orders %}
+    <p><a class="gold" href="{{ order.customer_url }}">{{ order.name }}</a> · {{ order.created_at | date: '%b %d, %Y' }} · {{ order.total_price | money }}</p>
+  {% else %}
+    <p class="muted">No orders yet.</p>
+  {% endfor %}
+</section>

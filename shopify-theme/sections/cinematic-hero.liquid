@@ -1,0 +1,35 @@
+<section class="hero">
+  {% if section.settings.image %}
+    {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'ken', loading: 'eager', alt: section.settings.title }}
+  {% else %}
+    <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="{{ section.settings.title | escape }}" width="1600" height="2000">
+  {% endif %}
+  {% if section.settings.video_url != blank %}
+    <video class="motion-video" autoplay muted loop playsinline>
+      <source src="{{ section.settings.video_url }}" type="video/mp4">
+    </video>
+  {% endif %}
+  <div class="hero-veil"></div>
+  <div class="hero__copy wrap">
+    <p class="kicker">{{ section.settings.kicker }}</p>
+    <h1>{{ section.settings.title }}</h1>
+    <p class="body">{{ section.settings.body }}</p>
+    <a class="btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cinematic hero",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Night atelier" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Exotic silk, cut for the body." },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Jewel-tone lounge, sleep, and lingerie. Cash on delivery, worldwide." },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop the house" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "image_picker", "id": "image", "label": "Poster" },
+    { "type": "text", "id": "video_url", "label": "MP4 URL (optional)" }
+  ],
+  "presets": [{ "name": "Cinematic hero" }]
+}
+{% endschema %}

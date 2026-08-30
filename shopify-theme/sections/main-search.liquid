@@ -1,0 +1,18 @@
+<section class="wrap section">
+  <p class="kicker">Search</p>
+  <h1 class="display" style="font-style:italic">{{ search.terms | default: 'The house' }}</h1>
+  <form action="{{ routes.search_url }}" style="margin:1.5rem 0">
+    <input type="search" name="q" value="{{ search.terms | escape }}" style="height:2.75rem;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem;min-width:16rem">
+    <button class="btn" type="submit">Search</button>
+  </form>
+  <div class="grid-shop">
+    {% for item in search.results %}
+      {% if item.object_type == 'product' %}
+        {% render 'product-card', product: item %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{ "name": "Search", "settings": [] }
+{% endschema %}

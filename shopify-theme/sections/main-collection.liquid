@@ -1,0 +1,42 @@
+<section class="page-hero">
+  {% if collection.featured_image %}
+    {{ collection.featured_image | image_url: width: 2000 | image_tag: class: 'ken' }}
+  {% else %}
+    <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="" width="1600" height="1000">
+  {% endif %}
+  <div class="hero-veil"></div>
+  <div class="wrap">
+    <p class="kicker">Boutique</p>
+    <h1 class="display" style="font-style:italic;font-size:clamp(2.4rem,5vw,3.8rem);margin:0.5rem 0 0">{{ collection.title | default: 'Shop the house' }}</h1>
+  </div>
+</section>
+
+{% paginate collection.products by 24 %}
+<div class="wrap section">
+  <div class="filters">
+    <a class="pill {% if collection.handle == 'all' %}is-on{% endif %}" href="{{ routes.all_products_collection_url }}">All</a>
+    {% for col in collections %}
+      {% unless col.handle == 'frontpage' or col.handle == 'all' %}
+        <a class="pill {% if collection.handle == col.handle %}is-on{% endif %}" href="{{ col.url }}">{{ col.title }}</a>
+      {% endunless %}
+    {% endfor %}
+  </div>
+  <div class="grid-shop" style="margin-top:2rem">
+    {% for product in collection.products %}
+      {% render 'product-card', product: product %}
+    {% else %}
+      <p class="muted">No pieces in this aisle yet.</p>
+    {% endfor %}
+  </div>
+  {% if paginate.pages > 1 %}
+    <div class="filters" style="margin-top:2rem">{{ paginate | default_pagination }}</div>
+  {% endif %}
+</div>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": []
+}
+{% endschema %}

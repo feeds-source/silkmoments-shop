@@ -1,0 +1,50 @@
+{% if product.tags contains 'featured' or product.tags contains 'Exotic' or product.tags contains 'Best seller' %}
+  {% assign wide = true %}
+{% endif %}
+<article class="{% if wide %}span-wide{% endif %}">
+  <a href="{{ product.url }}">
+    <div class="card-media media-fill">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 900 | image_tag: class: 'ken', alt: product.title }}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag }}
+      {% endif %}
+      {% if product.tags.size > 0 %}
+        <span class="tag">{{ product.tags.first }}</span>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <p class="cat">{{ product.type | default: product.collections.first.title }}</p>
+      <h3>{{ product.title }}</h3>
+      <p class="price">{{ product.price | money }}</p>
+    </div>
+  </a>
+  <div class="card-actions">
+    {% form 'product', product, data-ajax: true %}
+      {% if product.has_only_default_variant %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      {% else %}
+        <label class="kicker">Size</label>
+        <select class="size-select" name="id">
+          {% for variant in product.variants %}
+            <option
+              value="{{ variant.id }}"
+              {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
+              {% unless variant.available %}disabled{% endunless %}
+            >
+              {{ variant.title }}
+              {% if variant.inventory_management %}
+                {% if variant.available %} · {{ variant.inventory_quantity }} left{% else %} — sold out{% endif %}
+              {% else %}
+                {% unless variant.available %} — sold out{% endunless %}
+              {% endif %}
+            </option>
+          {% endfor %}
+        </select>
+      {% endif %}
+      <button class="btn" type="submit" style="margin-top:0.5rem" {% unless product.available %}disabled{% endunless %}>
+        {% if product.available %}{{ 'products.add' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif %}
+      </button>
+    {% endform %}
+  </div>
+</article>

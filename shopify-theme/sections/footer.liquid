@@ -1,0 +1,72 @@
+<footer class="site-footer">
+  <img src="{{ 'lounge.jpg' | asset_url }}" alt="" width="1600" height="1000">
+  <div class="footer-veil"></div>
+  <div class="wrap site-footer__inner">
+    <div class="grid-footer">
+      <div class="brand-lockup">
+        <p class="brand__name">{{ settings.brand_name }}</p>
+        <p class="brand__sub">{{ settings.brand_sub }}</p>
+        <h2>{{ settings.brand_line }}</h2>
+        <p class="muted" style="margin-top:1rem;max-width:22rem">Jewel-tone lingerie, night, and lounge. Cash on delivery worldwide. A printable receipt at every order.</p>
+      </div>
+      <div class="grid-footer-nav">
+        {% for block in section.blocks %}
+          <div {{ block.shopify_attributes }}>
+            <h3>{{ block.settings.title }}</h3>
+            <ul>
+              {% for link in block.settings.menu.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% else %}
+                {% for collection in collections limit: 8 %}
+                  {% unless collection.handle == 'frontpage' %}
+                    <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+                  {% endunless %}
+                {% endfor %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+        <div>
+          <h3>House</h3>
+          <ul>
+            <li><a href="{{ pages.about.url }}">The atelier</a></li>
+            <li><a href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a></li>
+            <li><a href="{{ pages.contact.url }}">Contact</a></li>
+            <li><a href="{{ routes.account_url }}">Orders</a></li>
+            <li><a href="{{ routes.all_products_collection_url }}">Shop all</a></li>
+          </ul>
+          <p class="subtle" style="margin-top:1.5rem;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase">Write</p>
+          <a class="gold" href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="gold-rule" style="margin-top:3.5rem"></div>
+    <div class="legal">
+      <p>{{ 'general.cod' | t }} · {{ 'general.sizes' | t }}</p>
+      <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · Adult atelier</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Night" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "menu", "settings": { "title": "Night" } },
+      { "type": "menu", "settings": { "title": "Body" } },
+      { "type": "menu", "settings": { "title": "After dusk" } }
+    ]
+  }
+}
+{% endschema %}

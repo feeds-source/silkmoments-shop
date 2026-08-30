@@ -1,0 +1,45 @@
+<section class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    {% for i in (1..2) %}
+      {% for block in section.blocks %}
+        <figure {{ block.shopify_attributes }}>
+          {% if block.settings.image %}
+            {{ block.settings.image | image_url: width: 600 | image_tag: alt: block.settings.alt }}
+          {% else %}
+            <img src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.alt | escape }}" width="640" height="440">
+          {% endif %}
+        </figure>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Silk marquee",
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback", "label": "Asset filename", "default": "tile-emerald.jpg" },
+        { "type": "text", "id": "alt", "label": "Alt", "default": "Silk" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Silk marquee",
+      "blocks": [
+        { "type": "tile", "settings": { "fallback": "tile-emerald.jpg", "alt": "Emerald silk" } },
+        { "type": "tile", "settings": { "fallback": "tile-ribbon.jpg", "alt": "Champagne ribbon" } },
+        { "type": "tile", "settings": { "fallback": "tile-peacock.jpg", "alt": "Peacock" } },
+        { "type": "tile", "settings": { "fallback": "hero.jpg", "alt": "Atelier silk" } },
+        { "type": "tile", "settings": { "fallback": "sleep.jpg", "alt": "Satin night" } },
+        { "type": "tile", "settings": { "fallback": "lounge.jpg", "alt": "Lounge" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

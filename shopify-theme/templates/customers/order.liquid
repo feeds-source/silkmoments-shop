@@ -1,0 +1,15 @@
+<section class="wrap section">
+  <p class="kicker">Order</p>
+  <h1 class="display" style="font-style:italic">{{ order.name }}</h1>
+  <p class="muted">{{ order.created_at | date: '%B %d, %Y' }} · {{ order.financial_status }}</p>
+  <table class="cart-table">
+    {% for line in order.line_items %}
+      <tr>
+        <td>{{ line.title }}</td>
+        <td>{{ line.quantity }}</td>
+        <td>{{ line.final_line_price | money }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  <p style="margin-top:1rem"><strong>{{ order.total_price | money }}</strong></p>
+</section>

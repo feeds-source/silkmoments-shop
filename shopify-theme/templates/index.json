@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "hero": {
+      "type": "cinematic-hero",
+      "settings": {
+        "kicker": "Night atelier",
+        "title": "Exotic silk, cut for the body.",
+        "body": "Jewel-tone lounge, sleep, and lingerie. Cash on delivery, worldwide.",
+        "button_label": "Shop the house"
+      }
+    },
+    "marquee": {
+      "type": "silk-marquee",
+      "blocks": {
+        "t1": { "type": "tile", "settings": { "fallback": "tile-emerald.jpg", "alt": "Emerald silk" } },
+        "t2": { "type": "tile", "settings": { "fallback": "tile-ribbon.jpg", "alt": "Champagne ribbon" } },
+        "t3": { "type": "tile", "settings": { "fallback": "tile-peacock.jpg", "alt": "Peacock" } },
+        "t4": { "type": "tile", "settings": { "fallback": "hero.jpg", "alt": "Atelier silk" } },
+        "t5": { "type": "tile", "settings": { "fallback": "sleep.jpg", "alt": "Satin night" } },
+        "t6": { "type": "tile", "settings": { "fallback": "lounge.jpg", "alt": "Lounge" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4", "t5", "t6"]
+    },
+    "campaign": {
+      "type": "campaign-rotator",
+      "blocks": {
+        "s1": { "type": "slide", "settings": { "kicker": "Sleep", "title": "Moonlit satin", "fallback": "sleep.jpg" } },
+        "s2": { "type": "slide", "settings": { "kicker": "Lingerie", "title": "Ruby lace night", "fallback": "lingerie.jpg" } },
+        "s3": { "type": "slide", "settings": { "kicker": "Lounge", "title": "Emerald after dusk", "fallback": "lounge.jpg" } }
+      },
+      "block_order": ["s1", "s2", "s3"]
+    },
+    "aisles": {
+      "type": "aisles-grid",
+      "settings": { "kicker": "New aisles", "title": "More of the house" },
+      "blocks": {
+        "a1": { "type": "aisle", "settings": { "kicker": "Babydoll", "title": "Short lace night", "fallback": "aisle-babydoll.jpg" } },
+        "a2": { "type": "aisle", "settings": { "kicker": "Bra Sets", "title": "Balconette pairs", "fallback": "aisle-sets.jpg" } },
+        "a3": { "type": "aisle", "settings": { "kicker": "Gowns", "title": "Satin after dusk", "fallback": "aisle-gowns.jpg" } },
+        "a4": { "type": "aisle", "settings": { "kicker": "Swim", "title": "Jewel bikini", "fallback": "aisle-swim.jpg" } },
+        "a5": { "type": "aisle", "settings": { "kicker": "Corsetry", "title": "Boning & gold", "fallback": "aisle-corset.jpg" } },
+        "a6": { "type": "aisle", "settings": { "kicker": "Body Stockings", "title": "Sheer noir", "fallback": "aisle-body.jpg" } }
+      },
+      "block_order": ["a1", "a2", "a3", "a4", "a5", "a6"]
+    },
+    "featured": {
+      "type": "featured-bento",
+      "settings": {
+        "kicker": "Exotic collection",
+        "title": "Lingerie in motion",
+        "limit": 8
+      }
+    },
+    "split": {
+      "type": "campaigns-split",
+      "blocks": {
+        "p1": { "type": "panel", "settings": { "kicker": "Sleep", "title": "Moonlit satin", "fallback": "sleep.jpg" } },
+        "p2": { "type": "panel", "settings": { "kicker": "Lingerie", "title": "Ruby lace night", "fallback": "lingerie.jpg" } },
+        "p3": { "type": "panel", "settings": { "kicker": "Lounge", "title": "Emerald after dusk", "fallback": "lounge.jpg" } }
+      },
+      "block_order": ["p1", "p2", "p3"]
+    }
+  },
+  "order": ["hero", "marquee", "campaign", "aisles", "featured", "split"]
+}

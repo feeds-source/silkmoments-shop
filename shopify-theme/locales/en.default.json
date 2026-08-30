@@ -1,0 +1,56 @@
+{
+  "general": {
+    "shop": "Shop",
+    "home": "Home",
+    "atelier": "Atelier",
+    "contact": "Contact",
+    "account": "Account",
+    "sign_in": "Sign in",
+    "bag": "Bag",
+    "add": "Add to bag",
+    "added": "Added",
+    "view_all": "View all",
+    "checkout": "Checkout",
+    "cod": "Cash on delivery worldwide",
+    "sizes": "Sizes 30B–42C · Free Size to XXL",
+    "size_guide": "Size guide",
+    "skip": "Skip to content",
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    }
+  },
+  "products": {
+    "add": "Add to bag",
+    "sold_out": "Sold out",
+    "quantity": "Quantity",
+    "size": "Size",
+    "in_atelier": "in the atelier"
+  },
+  "cart": {
+    "title": "Your bag",
+    "empty": "The bag is empty.",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout"
+  },
+  "customer": {
+    "account": {
+      "title": "Account",
+      "log_out": "Log out"
+    },
+    "login": {
+      "title": "Sign in",
+      "submit": "Sign in"
+    },
+    "register": {
+      "title": "Create account",
+      "submit": "Create"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Gift card",
+      "subtext": "Your gift card"
+    }
+  }
+}

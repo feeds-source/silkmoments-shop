@@ -1,0 +1,16 @@
+<article class="wrap section" style="max-width:42rem">
+  <p class="kicker">{{ article.published_at | date: '%d %b %Y' }}</p>
+  <h1 class="display" style="font-style:italic">{{ article.title }}</h1>
+  {% if article.image %}
+    <div class="product__media" style="position:relative;min-height:18rem;margin-top:1.5rem">
+      {{ article.image | image_url: width: 1400 | image_tag: class: 'ken', alt: article.title }}
+    </div>
+  {% endif %}
+  <div class="muted" style="margin-top:1.5rem">{{ article.content }}</div>
+</article>
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

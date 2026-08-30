@@ -1,0 +1,25 @@
+<section class="wrap section">
+  <p class="kicker">Aisles</p>
+  <h1 class="display" style="font-style:italic">The house</h1>
+  <div class="grid-aisles">
+    {% for collection in collections %}
+      {% unless collection.handle == 'frontpage' %}
+        <a class="aisle group" href="{{ collection.url }}">
+          {% if collection.featured_image %}
+            {{ collection.featured_image | image_url: width: 900 | image_tag: class: 'ken-hover' }}
+          {% else %}
+            <img class="ken-hover" src="{{ 'lounge.jpg' | asset_url }}" alt="{{ collection.title | escape }}" width="1200" height="900">
+          {% endif %}
+          <div class="hero-veil"></div>
+          <div class="aisle__copy">
+            <p class="kicker">{{ collection.all_products_count }} pieces</p>
+            <h3>{{ collection.title }}</h3>
+          </div>
+        </a>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{ "name": "Collections", "settings": [] }
+{% endschema %}

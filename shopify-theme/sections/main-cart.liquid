@@ -1,0 +1,44 @@
+<section class="wrap section">
+  <p class="kicker">Bag</p>
+  <h1 class="display" style="font-style:italic">{{ 'cart.title' | t }}</h1>
+
+  {% if cart.item_count == 0 %}
+    <p class="muted" style="margin-top:1rem">{{ 'cart.empty' | t }}</p>
+    <a class="btn" href="{{ routes.all_products_collection_url }}" style="margin-top:1.5rem">Shop the house</a>
+  {% else %}
+    <form action="{{ routes.cart_url }}" method="post">
+      <table class="cart-table">
+        <thead>
+          <tr><th>Piece</th><th>Size</th><th>Qty</th><th>Price</th></tr>
+        </thead>
+        <tbody>
+          {% for item in cart.items %}
+            <tr>
+              <td>
+                <a href="{{ item.url }}" style="display:flex;gap:0.75rem;align-items:center">
+                  {{ item.image | image_url: width: 160 | image_tag }}
+                  <span>{{ item.product.title }}</span>
+                </a>
+              </td>
+              <td class="muted">{{ item.variant.title }}</td>
+              <td><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:4rem;height:2.5rem;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.5rem"></td>
+              <td>{{ item.final_line_price | money }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="totals">
+        <p><span class="muted">{{ 'cart.subtotal' | t }}</span> <strong>{{ cart.total_price | money }}</strong></p>
+        <button class="btn" type="submit" name="update" style="margin-top:0.75rem;width:100%">Update bag</button>
+        <button class="btn" type="submit" name="checkout" style="margin-top:0.5rem;width:100%">{{ 'cart.checkout' | t }}</button>
+      </div>
+    </form>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

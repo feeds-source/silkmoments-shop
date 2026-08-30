@@ -1,0 +1,47 @@
+<header class="site-header">
+  <div class="wrap site-header__bar">
+    <a class="brand" href="{{ routes.root_url }}">
+      <span class="brand__name">{{ settings.brand_name }}</span>
+      <span class="brand__sub">{{ settings.brand_sub }}</span>
+    </a>
+    <nav class="nav-desk" aria-label="Primary">
+      <a href="{{ routes.root_url }}" class="{% if request.page_type == 'index' %}is-on{% endif %}">Home</a>
+      <a href="{{ routes.all_products_collection_url }}" class="{% if request.page_type == 'collection' or request.page_type == 'product' %}is-on{% endif %}">Shop</a>
+      <a href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}" class="{% if page.handle == 'size-guide' %}is-on{% endif %}">Sizes</a>
+      <a href="{{ pages.about.url | default: pages['the-atelier'].url }}">Atelier</a>
+      <a href="{{ pages.contact.url }}">Contact</a>
+    </nav>
+    <div class="header-actions">
+      {% if shop.customer_accounts_enabled %}
+        <a class="pill" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
+          {% if customer %}Account{% else %}Sign in{% endif %}
+        </a>
+      {% endif %}
+      <a class="pill bag-pill" href="{{ routes.cart_url }}">
+        Bag <span data-cart-count>{{ cart.item_count }}</span>
+      </a>
+      <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-label="Menu">☰</button>
+    </div>
+  </div>
+  <nav class="nav-mob" data-nav-mob>
+    <a href="{{ routes.root_url }}">Home</a>
+    <a href="{{ routes.all_products_collection_url }}">Shop</a>
+    <a href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Sizes</a>
+    {% for collection in collections %}
+      {% unless collection.handle == 'frontpage' or collection.all_products_count == 0 %}
+        <a href="{{ collection.url }}">{{ collection.title }}</a>
+      {% endunless %}
+    {% endfor %}
+    <a href="{{ pages.about.url }}">Atelier</a>
+    <a href="{{ pages.contact.url }}">Contact</a>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

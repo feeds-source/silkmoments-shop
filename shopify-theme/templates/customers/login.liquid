@@ -1,0 +1,11 @@
+<section class="wrap section" style="max-width:28rem">
+  <p class="kicker">Account</p>
+  <h1 class="display" style="font-style:italic">Sign in</h1>
+  {% form 'customer_login' %}
+    {{ form.errors | default_errors }}
+    <input type="email" name="customer[email]" placeholder="Email" autocomplete="email" style="display:block;width:100%;height:2.75rem;margin:0.75rem 0;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem">
+    <input type="password" name="customer[password]" placeholder="Password" autocomplete="current-password" style="display:block;width:100%;height:2.75rem;margin:0.75rem 0;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem">
+    <button class="btn" type="submit">Sign in</button>
+  {% endform %}
+  <p style="margin-top:1rem"><a class="gold" href="{{ routes.account_register_url }}">Create an account</a></p>
+</section>

@@ -1,0 +1,68 @@
+{% assign current = product.selected_or_first_available_variant %}
+<section class="wrap product">
+  <div class="product__media">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 1400 | image_tag: class: 'ken' }}
+    {% endif %}
+    {% if product.tags.size > 0 %}<span class="tag">{{ product.tags.first }}</span>{% endif %}
+  </div>
+  <div>
+    <a class="gold" href="{{ product.collections.first.url | default: routes.all_products_collection_url }}">Back to {{ product.type | default: 'shop' }}</a>
+    <p class="kicker" style="margin-top:1.5rem">{{ product.type }}</p>
+    <h1>{{ product.title }}</h1>
+    <p class="price" style="font-size:1.25rem;font-weight:600;color:var(--accent);margin:0.75rem 0 0">{{ current.price | money }}</p>
+    <div class="muted" style="margin-top:1rem;max-width:28rem">{{ product.description }}</div>
+
+    {% form 'product', product %}
+      {% unless product.has_only_default_variant %}
+        <fieldset class="variants">
+          <legend class="kicker">Size</legend>
+          {% for variant in product.variants %}
+            <input
+              type="radio"
+              name="id"
+              id="v-{{ variant.id }}"
+              value="{{ variant.id }}"
+              data-inventory="{{ variant.inventory_quantity }}"
+              data-available="{{ variant.available }}"
+              {% if variant == current %}checked{% endif %}
+              {% unless variant.available %}disabled{% endunless %}
+            >
+            <label for="v-{{ variant.id }}">{{ variant.title }}</label>
+          {% endfor %}
+        </fieldset>
+        <p class="inv-note" data-inv-note>
+          {% if current.inventory_management and current.available %}
+            {{ current.inventory_quantity }} in the atelier
+          {% elsif current.available %}
+            In the atelier
+          {% else %}
+            Sold out
+          {% endif %}
+          · <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a>
+        </p>
+      {% else %}
+        <input type="hidden" name="id" value="{{ current.id }}">
+        <p class="inv-note">
+          {% if current.inventory_management and current.available %}{{ current.inventory_quantity }} in the atelier · {% endif %}
+          <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a>
+        </p>
+      {% endunless %}
+      <div class="qty">
+        <label class="kicker" for="qty">{{ 'products.quantity' | t }}</label><br>
+        <input id="qty" type="number" name="quantity" value="1" min="1" {% if current.inventory_management %}max="{{ current.inventory_quantity | at_least: 1 }}"{% endif %}>
+      </div>
+      <button class="btn" type="submit" style="margin-top:2rem" {% unless current.available %}disabled{% endunless %}>
+        {% if current.available %}{{ 'products.add' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif %}
+      </button>
+    {% endform %}
+    <p class="muted" style="margin-top:0.75rem;font-size:0.8rem">{{ 'general.sizes' | t }} · {{ 'general.cod' | t }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": []
+}
+{% endschema %}

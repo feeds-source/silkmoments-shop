@@ -1,0 +1,17 @@
+node_modules/
+.tanstack/
+.vercel/
+.grok/
+artifacts/
+screenshots/
+attachments/
+.env
+.env.*
+.dev.vars
+.wrangler/
+dist/
+.pglite/
+*.log
+.node_modules.lock
+.project_id
+AGENTS.md

@@ -1,0 +1,15 @@
+<section class="wrap section">
+  <p class="kicker">Account</p>
+  <h1 class="display" style="font-style:italic">Addresses</h1>
+  {% for address in customer.addresses %}
+    <div class="muted" style="margin:1rem 0">{{ address | format_address }}</div>
+  {% endfor %}
+  {% form 'customer_address', customer.new_address %}
+    <h2 class="display">New address</h2>
+    <input type="text" name="address[first_name]" placeholder="First name" style="display:block;width:100%;max-width:24rem;height:2.75rem;margin:0.5rem 0;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem">
+    <input type="text" name="address[last_name]" placeholder="Last name" style="display:block;width:100%;max-width:24rem;height:2.75rem;margin:0.5rem 0;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem">
+    <input type="text" name="address[address1]" placeholder="Address" style="display:block;width:100%;max-width:24rem;height:2.75rem;margin:0.5rem 0;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem">
+    <input type="text" name="address[city]" placeholder="City" style="display:block;width:100%;max-width:24rem;height:2.75rem;margin:0.5rem 0;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem">
+    <button class="btn" type="submit">Save</button>
+  {% endform %}
+</section>
