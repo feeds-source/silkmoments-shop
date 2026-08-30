@@ -1,0 +1,16 @@
+{
+  "name": "Noir Atelier",
+  "tagline": "Deep obsidian luxury for intimate apparel and dark aesthetic boutiques",
+  "description": "An opulent, dark-mode boutique theme featuring obsidian tones, metallic champagne gold typography, and cinematic editorial video displays.",
+  "industries": [
+    "Clothing and fashion",
+    "Jewelry and accessories"
+  ],
+  "catalog_size": "Small (1-50 products)",
+  "features": [
+    "Cinematic video hero and editorial rotating lookbook",
+    "Slide-out cart and predictive autocomplete search",
+    "Interactive Atelier sizing calculator",
+    "Optimized for conversion and mobile-first luxury commerce"
+  ]
+}

@@ -21,6 +21,15 @@
     {% render 'css-vars' %}
     {% render 'meta-tags' %}
     {{ 'femme.css' | asset_url | stylesheet_tag }}
+    <script>
+      window.FEMME = {
+        searchUrl: {{ routes.search_url | json }},
+        shopUrl: {{ routes.all_products_collection_url | json }},
+        asset: function (name) {
+          return {{ 'femme.css' | asset_url | json }}.replace(/femme\.css(\?.*)?$/, name);
+        }
+      };
+    </script>
     {{ content_for_header }}
   </head>
   <body>

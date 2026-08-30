@@ -1,18 +1,54 @@
-<section class="wrap section">
-  <p class="kicker">Search</p>
-  <h1 class="display" style="font-style:italic">{{ search.terms | default: 'The house' }}</h1>
-  <form action="{{ routes.search_url }}" style="margin:1.5rem 0">
-    <input type="search" name="q" value="{{ search.terms | escape }}" style="height:2.75rem;background:var(--elevated);border:1px solid var(--line);color:var(--fg);padding:0 0.75rem;min-width:16rem">
+<section class="page-hero">
+  <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="" width="1600" height="1000">
+  <div class="hero-veil"></div>
+  <div class="wrap page-hero-copy">
+    <p class="kicker">Search</p>
+    <h1 class="display page-title">{{ search.terms | default: 'The house' }}</h1>
+    <p class="muted lede">Silk gowns, babydolls, bras, and the size studio.</p>
+  </div>
+</section>
+
+<div class="wrap section">
+  <form action="{{ routes.search_url }}" method="get" role="search" class="search-page-form" data-search-page>
+    <label class="search-input-wrap">
+      <span class="visually-hidden">Search the atelier</span>
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input
+        class="search-input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="Search silk gowns, babydolls, bras, sizes..."
+        data-search-page-input
+      >
+    </label>
+    <input type="hidden" name="options[prefix]" value="last">
     <button class="btn" type="submit">Search</button>
   </form>
-  <div class="grid-shop">
+
+  <div class="search-block" data-search-aisles></div>
+
+  <p class="muted" data-search-count style="margin-top:2rem">
+    {% if search.performed %}
+      {{ search.results_count }} {{ search.results_count | pluralize: 'piece', 'pieces' }}
+    {% else %}
+      Type two letters to search the atelier.
+    {% endif %}
+  </p>
+
+  <div class="grid-shop" data-search-grid style="margin-top:2rem">
+    {% assign shown = 0 %}
     {% for item in search.results %}
       {% if item.object_type == 'product' %}
         {% render 'product-card', product: item %}
+        {% assign shown = shown | plus: 1 %}
       {% endif %}
     {% endfor %}
+    {% if shown == 0 %}
+      {% render 'demo-catalog', mode: 'all', max_items: 36 %}
+    {% endif %}
   </div>
-</section>
+</div>
 {% schema %}
 { "name": "Search", "settings": [] }
 {% endschema %}

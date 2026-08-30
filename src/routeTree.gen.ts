@@ -13,12 +13,15 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AtelierRouteImport } from './routes/atelier'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SizeGuideRouteImport } from './routes/size-guide'
+import { Route as SizesRouteImport } from './routes/sizes'
 import { Route as ShopProductIdRouteImport } from './routes/shop.$productId'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -42,6 +45,11 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AtelierRoute = AtelierRouteImport.update({
+  id: '/atelier',
+  path: '/atelier',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CartRoute = CartRouteImport.update({
   id: '/cart',
   path: '/cart',
@@ -62,6 +70,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
@@ -70,6 +83,11 @@ const ShopRoute = ShopRouteImport.update({
 const SizeGuideRoute = SizeGuideRouteImport.update({
   id: '/size-guide',
   path: '/size-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SizesRoute = SizesRouteImport.update({
+  id: '/sizes',
+  path: '/sizes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShopProductIdRoute = ShopProductIdRouteImport.update({
@@ -88,12 +106,15 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
+  '/atelier': typeof AtelierRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
+  '/search': typeof SearchRoute
   '/shop': typeof ShopRouteWithChildren
   '/size-guide': typeof SizeGuideRoute
+  '/sizes': typeof SizesRoute
   '/shop/$productId': typeof ShopProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -102,12 +123,15 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
+  '/atelier': typeof AtelierRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
+  '/search': typeof SearchRoute
   '/shop': typeof ShopRouteWithChildren
   '/size-guide': typeof SizeGuideRoute
+  '/sizes': typeof SizesRoute
   '/shop/$productId': typeof ShopProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -117,12 +141,15 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
+  '/atelier': typeof AtelierRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
+  '/search': typeof SearchRoute
   '/shop': typeof ShopRouteWithChildren
   '/size-guide': typeof SizeGuideRoute
+  '/sizes': typeof SizesRoute
   '/shop/$productId': typeof ShopProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -133,12 +160,15 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/admin'
+    | '/atelier'
     | '/cart'
     | '/checkout'
     | '/contact'
     | '/login'
+    | '/search'
     | '/shop'
     | '/size-guide'
+    | '/sizes'
     | '/shop/$productId'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
@@ -147,12 +177,15 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/admin'
+    | '/atelier'
     | '/cart'
     | '/checkout'
     | '/contact'
     | '/login'
+    | '/search'
     | '/shop'
     | '/size-guide'
+    | '/sizes'
     | '/shop/$productId'
     | '/api/auth/$'
   id:
@@ -161,12 +194,15 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/admin'
+    | '/atelier'
     | '/cart'
     | '/checkout'
     | '/contact'
     | '/login'
+    | '/search'
     | '/shop'
     | '/size-guide'
+    | '/sizes'
     | '/shop/$productId'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
@@ -176,12 +212,15 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRoute
   AdminRoute: typeof AdminRoute
+  AtelierRoute: typeof AtelierRoute
   CartRoute: typeof CartRoute
   CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
   LoginRoute: typeof LoginRoute
+  SearchRoute: typeof SearchRoute
   ShopRoute: typeof ShopRouteWithChildren
   SizeGuideRoute: typeof SizeGuideRoute
+  SizesRoute: typeof SizesRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -215,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/atelier': {
+      id: '/atelier'
+      path: '/atelier'
+      fullPath: '/atelier'
+      preLoaderRoute: typeof AtelierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cart': {
       id: '/cart'
       path: '/cart'
@@ -243,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
@@ -255,6 +308,13 @@ declare module '@tanstack/react-router' {
       path: '/size-guide'
       fullPath: '/size-guide'
       preLoaderRoute: typeof SizeGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sizes': {
+      id: '/sizes'
+      path: '/sizes'
+      fullPath: '/sizes'
+      preLoaderRoute: typeof SizesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shop/$productId': {
@@ -289,12 +349,15 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AccountRoute: AccountRoute,
   AdminRoute: AdminRoute,
+  AtelierRoute: AtelierRoute,
   CartRoute: CartRoute,
   CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
   LoginRoute: LoginRoute,
+  SearchRoute: SearchRoute,
   ShopRoute: ShopRouteWithChildren,
   SizeGuideRoute: SizeGuideRoute,
+  SizesRoute: SizesRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

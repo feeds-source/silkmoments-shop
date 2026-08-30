@@ -1,0 +1,144 @@
+<section class="page-hero cine-page">
+  <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="The atelier" width="1920" height="1080">
+  <video class="motion-video" autoplay muted loop playsinline poster="{{ 'hero.jpg' | asset_url }}" aria-hidden="true">
+    <source src="{{ 'hero.mp4' | asset_url }}" type="video/mp4">
+  </video>
+  <div class="hero-veil"></div>
+  <div class="wrap page-hero-copy">
+    <p class="kicker">House</p>
+    <h1 class="display page-title">The atelier</h1>
+    <p class="muted lede">Exotic silk, cut for the body. Emerald, champagne, ruby — still-life, then motion.</p>
+    <a class="btn" href="{{ routes.all_products_collection_url }}" style="margin-top:1.5rem">Shop the house</a>
+  </div>
+</section>
+
+<section class="wrap section split-intro">
+  <div>
+    <p class="kicker">Femme</p>
+    <h2 class="display" style="font-style:italic">An adult house of jewel silk.</h2>
+  </div>
+  <div>
+    <p class="muted lede">Femme is Silk Moments after dusk: lingerie, night, and lounge. Banners that breathe, fabric that moves. Every still is shot as a painting, then the film starts.</p>
+    <p class="muted lede">Pieces are cut for 30B–42C and Free Size to XXL. Cash on delivery worldwide. A printable receipt at every order.</p>
+    <p class="subtle">Returns are not offered on worn pieces — measure first, then write <a class="gold" href="mailto:{{ settings.contact_email | default: 'info@silkmoments.com' }}">{{ settings.contact_email | default: 'info@silkmoments.com' }}</a>.</p>
+  </div>
+</section>
+
+<section class="wrap section">
+  <p class="kicker">Three rooms</p>
+  <h2 class="display" style="font-style:italic">Walk the house</h2>
+  <div class="room-grid">
+    <article class="room-card">
+      <div class="room-media">
+        <img class="ken" src="{{ 'sleep.jpg' | asset_url }}" alt="Night" width="800" height="600">
+        <video class="motion-video" autoplay muted loop playsinline poster="{{ 'sleep.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'sleep.mp4' | asset_url }}" type="video/mp4"></video>
+        <div class="hero-veil"></div>
+        <div class="room-copy"><p class="kicker">Night</p><h3>Night</h3></div>
+      </div>
+      <p class="muted">Babydolls, short and long nighties, gowns, teddies. Satin after dusk, lace in candlelight.</p>
+      <div class="search-pills">
+        <a class="pill" href="{{ routes.search_url }}?q=Babydoll">Babydoll</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Short+Nighty">Short Nighty</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Long+Nighty">Long Nighty</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Gowns">Gowns</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Teddies">Teddies</a>
+      </div>
+    </article>
+    <article class="room-card">
+      <div class="room-media">
+        <img class="ken" src="{{ 'lingerie.jpg' | asset_url }}" alt="Body" width="800" height="600">
+        <video class="motion-video" autoplay muted loop playsinline poster="{{ 'lingerie.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'lingerie.mp4' | asset_url }}" type="video/mp4"></video>
+        <div class="hero-veil"></div>
+        <div class="room-copy"><p class="kicker">Body</p><h3>Body</h3></div>
+      </div>
+      <p class="muted">Bras and sets, panties, camisole, corsetry, hose, body stockings, shapewear. Cut to the tape.</p>
+      <div class="search-pills">
+        <a class="pill" href="{{ routes.search_url }}?q=Bras">Bras</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Bra+Sets">Bra Sets</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Corsetry">Corsetry</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Hosiery">Hosiery</a>
+      </div>
+    </article>
+    <article class="room-card">
+      <div class="room-media">
+        <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="After dusk" width="800" height="600">
+        <div class="hero-veil"></div>
+        <div class="room-copy"><p class="kicker">After dusk</p><h3>After dusk</h3></div>
+      </div>
+      <p class="muted">Bridal ivory, jewel swim, lounge, resort, thermal, and the small gold things worn last.</p>
+      <div class="search-pills">
+        <a class="pill" href="{{ routes.search_url }}?q=Bridal">Bridal</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Swim">Swim</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Loungewear">Loungewear</a>
+        <a class="pill" href="{{ routes.search_url }}?q=Resort">Resort</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap section">
+  <p class="kicker">How we cut</p>
+  <h2 class="display" style="font-style:italic">Silk, lace, gold</h2>
+  <div class="craft-grid">
+    <article><h3>Silk</h3><p class="muted">Jewel charmeuse in emerald, champagne, ruby. Cool to the hand, then motion on film.</p></article>
+    <article><h3>Lace</h3><p class="muted">Midnight, orchid, ivory. Stretch where the body turns, rigid where a neckline should hold.</p></article>
+    <article><h3>Gold</h3><p class="muted">Hardware, ribbon, seaming. A champagne line against noir — never costume gilt.</p></article>
+    <article><h3>Hourglass</h3><p class="muted">Waspie and bustier lace 4–6 cm. Size to the open waist. Hourglass, not squeeze.</p></article>
+  </div>
+  <div style="margin-top:2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem">
+    <a class="pill" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size charts</a>
+    <p class="subtle">Tape snug, stand easy. Charts are the atelier starting point.</p>
+  </div>
+</section>
+
+<section class="wrap section">
+  <p class="kicker">Lookbook</p>
+  <h2 class="display" style="font-style:italic">Still-life, then motion</h2>
+  <div class="lookbook">
+    <figure class="look-card">
+      <img class="ken" src="{{ 'hero.jpg' | asset_url }}" alt="House film" width="800" height="600">
+      <video class="motion-video" autoplay muted loop playsinline poster="{{ 'hero.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'hero.mp4' | asset_url }}" type="video/mp4"></video>
+      <figcaption>House film</figcaption>
+    </figure>
+    <figure class="look-card">
+      <img class="ken" src="{{ 'sleep.jpg' | asset_url }}" alt="Moonlit satin" width="800" height="600">
+      <video class="motion-video" autoplay muted loop playsinline poster="{{ 'sleep.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'sleep.mp4' | asset_url }}" type="video/mp4"></video>
+      <figcaption>Moonlit satin</figcaption>
+    </figure>
+    <figure class="look-card">
+      <img class="ken" src="{{ 'lingerie.jpg' | asset_url }}" alt="Ruby lace night" width="800" height="600">
+      <video class="motion-video" autoplay muted loop playsinline poster="{{ 'lingerie.jpg' | asset_url }}" aria-hidden="true"><source src="{{ 'lingerie.mp4' | asset_url }}" type="video/mp4"></video>
+      <figcaption>Ruby lace night</figcaption>
+    </figure>
+    <figure class="look-card">
+      <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="Emerald after dusk" width="800" height="600">
+      <figcaption>Emerald after dusk</figcaption>
+    </figure>
+    <figure class="look-card">
+      <img class="ken" src="{{ 'tile-peacock.jpg' | asset_url }}" alt="Peacock silk" width="800" height="600">
+      <figcaption>Peacock silk</figcaption>
+    </figure>
+    <figure class="look-card">
+      <img class="ken" src="{{ 'tile-emerald.jpg' | asset_url }}" alt="Emerald still" width="800" height="600">
+      <figcaption>Emerald still</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="page-hero" style="min-height:16rem">
+  <img src="{{ 'lounge.jpg' | asset_url }}" alt="The house is open" width="1600" height="800" style="opacity:0.35">
+  <div class="hero-veil"></div>
+  <div class="wrap page-hero-copy">
+    <p class="kicker">Visit</p>
+    <h2 class="display" style="font-style:italic">The house is open.</h2>
+    <a class="btn" href="{{ routes.all_products_collection_url }}" style="margin-top:1rem">Shop the house</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Atelier house",
+  "settings": [],
+  "presets": [{ "name": "Atelier house" }]
+}
+{% endschema %}

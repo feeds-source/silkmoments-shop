@@ -1,7 +1,36 @@
+{% assign handle = collection.handle | default: 'all' %}
+{% assign hero_img = 'lounge.jpg' %}
+{% assign hero_vid = '' %}
+{% assign hero_kick = 'Boutique' %}
+{% assign hero_body = 'Night, body, and after dusk — jewel silk, lace, and gold, cut for 30B–42C.' %}
+{% case handle %}
+  {% when 'bras' %}
+    {% assign hero_img = 'everyday-soft-bra.jpg' %}{% assign hero_vid = 'everyday-soft-bra.mp4' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Soft cups, T-shirt, first-fit. Band and cup as worn in atelier fittings.' %}
+  {% when 'bra-sets' %}
+    {% assign hero_img = 'lace-balconette-set.jpg' %}{% assign hero_vid = 'lace-balconette-set.mp4' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Balconette pairs. Midnight lace with a matching brief.' %}
+  {% when 'babydoll' %}
+    {% assign hero_img = 'ruby-babydoll.jpg' %}{% assign hero_vid = 'ruby-babydoll.mp4' %}{% assign hero_kick = 'Night' %}{% assign hero_body = 'Short lace night. Ruby, orchid, noir — hem above the knee.' %}
+  {% when 'gowns' %}
+    {% assign hero_img = 'satin-gown.jpg' %}{% assign hero_kick = 'Night' %}{% assign hero_body = 'Floor-length satin. Between sizes at the hip — take the larger.' %}
+  {% when 'teddies' %}
+    {% assign hero_img = 'noir-teddy.jpg' %}{% assign hero_vid = 'noir-teddy.mp4' %}{% assign hero_kick = 'Night' %}{% assign hero_body = 'One-piece lace and jewel silk, cut for candlelight.' %}
+  {% when 'bridal' %}
+    {% assign hero_img = 'ivory-bridal-set.jpg' %}{% assign hero_vid = 'ivory-bridal-set.mp4' %}{% assign hero_kick = 'After dusk' %}{% assign hero_body = 'Ivory lace, pearl clasps, getting-ready robes.' %}
+  {% when 'corsetry' %}
+    {% assign hero_img = 'emerald-bustier.jpg' %}{% assign hero_vid = 'emerald-bustier.mp4' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Boning and gold. Hourglass, not squeeze — lace 4–6 cm.' %}
+  {% when 'swim' %}
+    {% assign hero_img = 'silk-bikini.jpg' %}{% assign hero_kick = 'After dusk' %}{% assign hero_body = 'Jewel bikini. Triangle top to the nearest cup, brief to the hip.' %}
+  {% when 'body-stockings' %}
+    {% assign hero_img = 'body-stocking.jpg' %}{% assign hero_kick = 'Body' %}{% assign hero_body = 'Sheer noir lace, one piece. Free size, made to drape.' %}
+  {% when 'loungewear' %}
+    {% assign hero_img = 'lounge.jpg' %}{% assign hero_kick = 'After dusk' %}{% assign hero_body = 'Knit robes and wide-leg ease. Emerald after dusk.' %}
+{% endcase %}
+
 <section class="page-hero">
   {% if collection.featured_image %}
     {{ collection.featured_image | image_url: width: 2000 | image_tag: class: 'ken', loading: 'eager', alt: collection.title }}
   {% else %}
+<<<<<<< HEAD
     <img class="ken" src="{{ 'lounge.jpg' | asset_url }}" alt="" width="1600" height="1000" loading="eager">
   {% endif %}
   <div class="hero-veil"></div>
@@ -26,22 +55,100 @@
   {% endif %}
 {% endfor %}
 
+=======
+    <img class="ken" src="{{ hero_img | asset_url }}" alt="" width="1600" height="1000" loading="eager">
+    {% if hero_vid != blank %}
+      <video class="motion-video" autoplay muted loop playsinline poster="{{ hero_img | asset_url }}" aria-hidden="true">
+        <source src="{{ hero_vid | asset_url }}" type="video/mp4">
+      </video>
+    {% endif %}
+  {% endif %}
+  <div class="hero-veil"></div>
+  <div class="wrap page-hero-copy">
+    <p class="kicker">{{ hero_kick }}</p>
+    <h1 class="display page-title">{{ collection.title | default: 'Shop the house' }}</h1>
+    <p class="muted lede">{{ collection.description | default: hero_body }}</p>
+  </div>
+</section>
+
+{% if handle == 'all' or handle == 'frontpage' or handle == blank %}
+<section class="wrap section">
+  <p class="kicker">Aisles</p>
+  <h2 class="display" style="font-style:italic">Walk the house</h2>
+  <div class="grid-aisles">
+    <a class="aisle group" href="{{ routes.search_url }}?q=Babydoll">
+      <img class="ken-hover" src="{{ 'ruby-babydoll.jpg' | asset_url }}" alt="Babydoll" width="800" height="600">
+      <div class="hero-veil"></div>
+      <div class="aisle__copy"><p class="kicker">Babydoll</p><h3>Short lace night</h3></div>
+    </a>
+    <a class="aisle group" href="{{ routes.search_url }}?q=Bra+Sets">
+      <img class="ken-hover" src="{{ 'lace-balconette-set.jpg' | asset_url }}" alt="Bra Sets" width="800" height="600">
+      <div class="hero-veil"></div>
+      <div class="aisle__copy"><p class="kicker">Bra Sets</p><h3>Balconette pairs</h3></div>
+    </a>
+    <a class="aisle group" href="{{ routes.search_url }}?q=Gowns">
+      <img class="ken-hover" src="{{ 'satin-gown.jpg' | asset_url }}" alt="Gowns" width="800" height="600">
+      <div class="hero-veil"></div>
+      <div class="aisle__copy"><p class="kicker">Gowns</p><h3>Satin after dusk</h3></div>
+    </a>
+    <a class="aisle group" href="{{ routes.search_url }}?q=Swim">
+      <img class="ken-hover" src="{{ 'silk-bikini.jpg' | asset_url }}" alt="Swim" width="800" height="600">
+      <div class="hero-veil"></div>
+      <div class="aisle__copy"><p class="kicker">Swim</p><h3>Jewel bikini</h3></div>
+    </a>
+    <a class="aisle group" href="{{ routes.search_url }}?q=Corsetry">
+      <img class="ken-hover" src="{{ 'emerald-bustier.jpg' | asset_url }}" alt="Corsetry" width="800" height="600">
+      <div class="hero-veil"></div>
+      <div class="aisle__copy"><p class="kicker">Corsetry</p><h3>Boning & gold</h3></div>
+    </a>
+    <a class="aisle group" href="{{ routes.search_url }}?q=Body+Stockings">
+      <img class="ken-hover" src="{{ 'body-stocking.jpg' | asset_url }}" alt="Body Stockings" width="800" height="600">
+      <div class="hero-veil"></div>
+      <div class="aisle__copy"><p class="kicker">Body Stockings</p><h3>Sheer noir</h3></div>
+    </a>
+  </div>
+</section>
+{% endif %}
+
+{% for block in section.blocks %}
+  {% if block.type == '@app' %}
+    <div class="wrap" style="margin-top:1.5rem">{% render block %}</div>
+  {% endif %}
+{% endfor %}
+
+<nav class="guide-nav">
+  <div class="wrap filters">
+    <a class="pill {% if handle == 'all' %}is-on{% endif %}" href="{{ routes.all_products_collection_url }}">All</a>
+    {% assign femme_cats = 'Bras,Bra Sets,Panties,Camisole,Babydoll,Short Nighty,Long Nighty,Gowns,Teddies,Bridal,Corsetry,Hosiery,Body Stockings,Shapewear,Swim,Loungewear,Resort,Thermal,Accessories' | split: ',' %}
+    {% for c in femme_cats %}
+      <a class="pill {% if collection.title == c %}is-on{% endif %}" href="{{ routes.search_url }}?q={{ c | url_encode }}">{{ c }}</a>
+    {% endfor %}
+  </div>
+</nav>
+
+>>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
 {% paginate collection.products by 24 %}
 <div class="wrap section">
-  <div class="filters">
-    <a class="pill {% if collection.handle == 'all' %}is-on{% endif %}" href="{{ routes.all_products_collection_url }}">All</a>
-    {% for col in collections %}
-      {% unless col.handle == 'frontpage' or col.handle == 'all' %}
-        <a class="pill {% if collection.handle == col.handle %}is-on{% endif %}" href="{{ col.url }}">{{ col.title }}</a>
-      {% endunless %}
-    {% endfor %}
+  <div class="catalog-head">
+    <p class="muted">
+      {% if collection.products_count > 0 %}
+        {{ collection.products_count }} {{ collection.products_count | pluralize: 'piece', 'pieces' }}
+      {% else %}
+        House preview — import products to replace the atelier catalog
+      {% endif %}
+    </p>
+    <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size charts</a>
   </div>
 
   <div class="grid-shop" style="margin-top:2rem">
     {% for product in collection.products %}
       {% render 'product-card', product: product %}
     {% else %}
+<<<<<<< HEAD
       {% render 'demo-catalog', mode: collection.handle, max_items: 36 %}
+=======
+      {% render 'demo-catalog', mode: handle, max_items: 36 %}
+>>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
     {% endfor %}
   </div>
 
@@ -56,11 +163,15 @@
   "name": "Collection",
   "tag": "section",
   "class": "section",
+<<<<<<< HEAD
   "blocks": [
     {
       "type": "@app"
     }
   ],
+=======
+  "blocks": [{ "type": "@app" }],
+>>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
   "settings": []
 }
 {% endschema %}

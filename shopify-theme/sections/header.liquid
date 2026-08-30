@@ -27,8 +27,8 @@
       <a href="{{ routes.root_url }}" class="{% if request.page_type == 'index' %}is-on{% endif %}">Home</a>
       <a href="{{ routes.all_products_collection_url }}" class="{% if request.page_type == 'collection' or request.page_type == 'product' %}is-on{% endif %}">Shop</a>
       <a href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}" class="{% if page.handle == 'size-guide' %}is-on{% endif %}">Sizes</a>
-      <a href="{{ pages.about.url | default: pages['the-atelier'].url }}">Atelier</a>
-      <a href="{{ pages.contact.url }}">Contact</a>
+      <a href="{{ pages.atelier.url | default: pages['the-atelier'].url | default: pages.about.url | default: '/pages/atelier' }}" class="{% if page.handle == 'atelier' or page.handle == 'the-atelier' or page.handle == 'about' %}is-on{% endif %}">Atelier</a>
+      <a href="{{ pages.contact.url | default: '/pages/contact' }}" class="{% if page.handle == 'contact' %}is-on{% endif %}">Contact</a>
     </nav>
 
     <div class="header-actions">
@@ -59,8 +59,8 @@
         <a href="{{ collection.url }}">{{ collection.title }}</a>
       {% endunless %}
     {% endfor %}
-    <a href="{{ pages.about.url }}">Atelier</a>
-    <a href="{{ pages.contact.url }}">Contact</a>
+    <a href="{{ pages.atelier.url | default: pages.about.url | default: '/pages/atelier' }}">Atelier</a>
+    <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact</a>
   </nav>
 
   {% render 'predictive-search' %}

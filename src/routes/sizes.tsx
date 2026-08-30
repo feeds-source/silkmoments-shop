@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/about")({
+export const Route = createFileRoute("/sizes")({
   beforeLoad: () => {
-    throw redirect({ to: "/atelier" });
+    throw redirect({ to: "/size-guide" });
   },
 });

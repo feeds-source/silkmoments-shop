@@ -1,0 +1,25 @@
+<section class="page-hero">
+  <img class="ken" src="{{ 'sleep.jpg' | asset_url }}" alt="" width="1600" height="1000">
+  <div class="hero-veil"></div>
+  <div class="wrap page-hero-copy">
+    <p class="kicker">Atelier</p>
+    <h1 class="display page-title">Write to the house</h1>
+  </div>
+</section>
+<div class="wrap section" style="max-width:40rem">
+  <p class="muted lede">Questions about an order, a fit, or a size from 30B to 42C? The atelier replies by email.</p>
+  <p style="margin-top:1.5rem"><a class="gold" href="mailto:{{ settings.contact_email | default: 'info@silkmoments.com' }}">{{ settings.contact_email | default: 'info@silkmoments.com' }}</a></p>
+  <p class="subtle" style="margin-top:2rem">Silk Moments · cash on delivery worldwide</p>
+  {% for block in section.blocks %}
+    {% if block.type == '@app' %}
+      <div style="margin-top:2rem">{% render block %}</div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% schema %}
+{
+  "name": "Contact",
+  "blocks": [{ "type": "@app" }],
+  "settings": []
+}
+{% endschema %}

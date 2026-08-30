@@ -43,7 +43,7 @@ export function AtelierFooter() {
             <h3 className="text-xs uppercase tracking-[0.22em] text-accent">House</h3>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <Link to="/about" className="text-muted transition-colors duration-150 hover:text-accent">
+                <Link to="/atelier" className="text-muted transition-colors duration-150 hover:text-accent">
                   The atelier
                 </Link>
               </li>
