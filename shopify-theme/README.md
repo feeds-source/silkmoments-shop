@@ -6,11 +6,13 @@ Online Store 2.0 boutique theme. Folders at **repo / zip root**.
 assets/  blocks/  config/  layout/  locales/  sections/  snippets/  templates/
 ```
 
+Theme **1.2.0** includes size-guide visual charts, fit lab, and product cards that keep names off the size menu.
+
 ## Install
 
-**Zip:** Online Store → Themes → Add theme → **Upload zip file** (`Femme-Silk-Atelier.zip`). Do not unzip.
+**Zip:** download [`Femme-Silk-Atelier.zip`](https://github.com/feeds-source/silkmoments-shop/raw/main/public/Femme-Silk-Atelier.zip) → Online Store → Themes → Add theme → **Upload zip file**. Do not unzip. Zip root must show `layout/`, not a wrapper folder.
 
-**GitHub:** connect **`feeds-source/femme-silk-atelier`**, branch **`main`** — not `vite-react-template`. Grant the Shopify GitHub app access to this repo first.
+**GitHub:** connect **`feeds-source/femme-silk-atelier`**, branch **`main`** — not `vite-react-template` and not `silkmoments-shop`. Grant the Shopify GitHub app access to this repo first.
 
 ## After install
 
