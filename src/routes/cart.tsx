@@ -22,13 +22,13 @@ function CartPage() {
         <div className="mt-8 grid gap-8 md:grid-cols-[1.4fr_0.8fr]">
           <ul>
             {cart.map((l) => (
-              <li key={`${l.product.id}-${l.size}`} className="grid grid-cols-[56px_1fr_auto] items-center gap-3 border-b border-line py-4">
+              <li key={`${l.product.id}-${l.size}`} className="grid grid-cols-[56px_minmax(0,1fr)_auto] items-center gap-3 border-b border-line py-4">
                 <div
-                  className="h-16 w-14 bg-elevated bg-cover bg-center"
+                  className="h-16 w-14 shrink-0 bg-elevated bg-cover bg-center"
                   style={{ backgroundImage: `url(${l.product.image})` }}
                 />
-                <div>
-                  <strong className="block text-sm">{l.product.name}</strong>
+                <div className="min-w-0">
+                  <strong className="block text-sm break-words">{l.product.name}</strong>
                   <p className="text-xs text-muted">
                     {l.size} · {Math.max(0, stockQty(l.product.id, l.size) - l.qty)} more in atelier
                   </p>

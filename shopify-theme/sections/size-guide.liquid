@@ -1,12 +1,19 @@
 <section class="wrap section" style="padding-top:2.5rem">
-  <p class="kicker">Atelier fittings</p>
-  <h1 class="display" style="font-style:italic;font-size:clamp(2.4rem,5vw,3.8rem);margin:0.5rem 0 0">Size charts</h1>
-  <p class="muted" style="max-width:32rem;margin-top:1rem">Figures, heat maps, and range bars — then the numbers. Stock is per size.</p>
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem">
+    <div>
+      <p class="kicker">Atelier fittings</p>
+      <h1 class="display" style="font-style:italic;font-size:clamp(2.4rem,5vw,3.8rem);margin:0.5rem 0 0">Size charts</h1>
+      <p class="muted" style="max-width:32rem;margin-top:1rem">Find a size from the tape, then read the maps — bra heat, body ranges, corset lacing, hose, gowns.</p>
+    </div>
+    <button type="button" class="pill" onclick="window.print()">Print charts</button>
+  </div>
 </section>
 
 <nav class="guide-nav">
   <div class="wrap">
-    <a class="pill is-on" href="#visuals">Visuals</a>
+    <a class="pill" href="#finder">Find size</a>
+    <a class="pill" href="#visuals">Visuals</a>
+    <a class="pill" href="#convert">Convert</a>
     <a class="pill" href="#bras">Band + cup</a>
     <a class="pill" href="#body">XS–XXL</a>
     <a class="pill" href="#night">Night</a>
@@ -17,6 +24,28 @@
     <a class="pill" href="#free">One cut</a>
   </div>
 </nav>
+
+<div class="wrap section" id="finder">
+  <p class="kicker">Fit lab</p>
+  <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Find your size</h2>
+  <p class="muted" style="max-width:32rem;margin-top:0.75rem">Underbust and bust give the bra. Waist and hip vote on body, nighty, gown, and corset. Height and thigh set the hose.</p>
+  <form class="fit-lab" data-fit>
+    <div class="fit-units" data-fit-units>
+      <button type="button" class="pill is-on" data-unit="cm">cm</button>
+      <button type="button" class="pill" data-unit="in">in</button>
+    </div>
+    <div class="fit-grid">
+      <label>Underbust <input type="number" min="0" step="0.5" name="under" inputmode="decimal"></label>
+      <label>Bust <input type="number" min="0" step="0.5" name="bust" inputmode="decimal"></label>
+      <label>Waist <input type="number" min="0" step="0.5" name="waist" inputmode="decimal"></label>
+      <label>Hip <input type="number" min="0" step="0.5" name="hip" inputmode="decimal"></label>
+      <label>Height <input type="number" min="0" step="0.5" name="height" inputmode="decimal"></label>
+      <label>Thigh <input type="number" min="0" step="0.5" name="thigh" inputmode="decimal"></label>
+    </div>
+    <p class="subtle" data-fit-hint>Enter underbust and bust for a bra; waist and hip for body; height for hose.</p>
+    <ul class="fit-out" data-fit-out hidden></ul>
+  </form>
+</div>
 
 <div class="wrap section" id="visuals">
   <p class="kicker">Visual charts</p>
@@ -91,7 +120,6 @@
   <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Body ranges</h2>
   <div class="range-chart">
     <p class="kicker">Bust · waist · hip, cm · scale 55–125</p>
-    {% comment %} left% = (lo-55)/70*100, width% = span/70*100 {% endcomment %}
     <div class="range-row"><span>XS</span><div class="range-track">
       <i class="bust" style="left:32.9%;width:5.7%"></i>
       <i class="waist" style="left:7.1%;width:5.7%"></i>
@@ -128,6 +156,90 @@
       <span><b style="background:var(--muted)"></b>Hip</span>
     </p>
   </div>
+
+  <div class="bars" style="margin-top:2rem">
+    <article>
+      <p class="kicker">Size progression · midpoints cm</p>
+      {% assign mids = "XS:36:22:44,S:43:27:51,M:50:31:59,L:57:36:66,XL:66:43:74,XXL:76:51:84" | split: "," %}
+      {% for row in mids %}
+        {% assign p = row | split: ":" %}
+        <div class="bar-row">
+          <span>{{ p[0] }}</span>
+          <div class="bar-track stacked">
+            <div class="bar-fill" style="width:{{ p[1] }}%"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <span></span>
+          <div class="bar-track stacked">
+            <div class="bar-fill blush" style="width:{{ p[2] }}%"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <span></span>
+          <div class="bar-track stacked">
+            <div class="bar-fill muted" style="width:{{ p[3] }}%"></div>
+          </div>
+        </div>
+      {% endfor %}
+      <p class="range-legend" style="margin-top:0.75rem">
+        <span><b style="background:var(--accent)"></b>Bust</span>
+        <span><b style="background:var(--blush)"></b>Waist</span>
+        <span><b style="background:var(--muted)"></b>Hip</span>
+      </p>
+    </article>
+  </div>
+</div>
+
+<div class="wrap section" id="convert">
+  <p class="kicker">UK · US · EU · FR · IT · AU · PK</p>
+  <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">International conversion</h2>
+  <p class="muted" style="max-width:32rem;margin-top:0.75rem">House labels are UK/US band and XS–XXL. Match a label from another market here before you order.</p>
+  <div class="range-chart">
+    <p class="kicker">Dress numbers · UK / US / EU</p>
+    {% assign dress = "XS:10:4:33,S:18:10:37,M:26:18:41,L:34:26:45,XL:42:34:49,XXL:50:42:53" | split: "," %}
+    {% for row in dress %}
+      {% assign p = row | split: ":" %}
+      <div class="range-row"><span>{{ p[0] }}</span><div class="range-track">
+        <i class="bust" style="left:0;width:{{ p[1] }}%"></i>
+        <i class="waist" style="left:0;width:{{ p[2] }}%"></i>
+        <i class="hip" style="left:0;width:{{ p[3] }}%"></i>
+      </div></div>
+    {% endfor %}
+    <p class="range-legend">
+      <span><b style="background:var(--accent)"></b>UK</span>
+      <span><b style="background:var(--blush)"></b>US</span>
+      <span><b style="background:var(--muted)"></b>EU</span>
+    </p>
+  </div>
+  <div style="overflow-x:auto">
+    <table class="chart-table">
+      <thead><tr><th>UK / US</th><th>EU</th><th>FR / ES / BE</th><th>IT</th><th>AU / NZ</th><th>PK</th></tr></thead>
+      <tbody>
+        <tr><td>30</td><td>65</td><td>80</td><td>0</td><td>8</td><td>30</td></tr>
+        <tr><td>32</td><td>70</td><td>85</td><td>1</td><td>10</td><td>32</td></tr>
+        <tr><td>34</td><td>75</td><td>90</td><td>2</td><td>12</td><td>34</td></tr>
+        <tr><td>36</td><td>80</td><td>95</td><td>3</td><td>14</td><td>36</td></tr>
+        <tr><td>38</td><td>85</td><td>100</td><td>4</td><td>16</td><td>38</td></tr>
+        <tr><td>40</td><td>90</td><td>105</td><td>5</td><td>18</td><td>40</td></tr>
+        <tr><td>42</td><td>95</td><td>110</td><td>6</td><td>20</td><td>42</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="kicker" style="margin-top:2rem">Cup</p>
+  <div style="overflow-x:auto">
+    <table class="chart-table">
+      <thead><tr><th>UK</th><th>US</th><th>EU</th><th>FR</th><th>Gap cm</th><th>Gap in</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>A</td><td>A</td><td>A</td><td>12–14</td><td>1</td></tr>
+        <tr><td>B</td><td>B</td><td>B</td><td>B</td><td>14–16</td><td>2</td></tr>
+        <tr><td>C</td><td>C</td><td>C</td><td>C</td><td>16–18</td><td>3</td></tr>
+        <tr><td>D</td><td>D</td><td>D</td><td>D</td><td>18–20</td><td>4</td></tr>
+        <tr><td>DD</td><td>DD / E</td><td>E</td><td>E</td><td>20–22</td><td>5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="subtle" style="margin-top:0.75rem;font-size:0.85rem">DD and above are not cut in this house.</p>
 </div>
 
 <div class="wrap section">
@@ -137,27 +249,27 @@
     <p class="muted" style="max-width:32rem;margin-top:0.75rem">Match underbust to the band, then the gap to the cup. Empty cells are not in this house.</p>
     <div style="overflow-x:auto">
       <table class="chart-table">
-        <thead><tr><th>Size</th><th>Underbust cm</th><th>Underbust in</th><th>Bust cm</th><th>Bust in</th></tr></thead>
+        <thead><tr><th>Size</th><th>Underbust cm</th><th>Underbust in</th><th>Bust cm</th><th>Bust in</th><th>EU</th><th>FR</th><th>Sisters</th></tr></thead>
         <tbody>
-          <tr><td>30B</td><td>63–67</td><td>25–26.5</td><td>77–83</td><td>30.3–32.7</td></tr>
-          <tr><td>32A</td><td>68–72</td><td>27–28.5</td><td>80–86</td><td>31.5–33.9</td></tr>
-          <tr><td>32B</td><td>68–72</td><td>27–28.5</td><td>82–88</td><td>32.3–34.6</td></tr>
-          <tr><td>32C</td><td>68–72</td><td>27–28.5</td><td>84–90</td><td>33.1–35.4</td></tr>
-          <tr><td>32D</td><td>68–72</td><td>27–28.5</td><td>86–92</td><td>33.9–36.2</td></tr>
-          <tr><td>34A</td><td>73–77</td><td>29–30.5</td><td>85–91</td><td>33.5–35.8</td></tr>
-          <tr><td>34B</td><td>73–77</td><td>29–30.5</td><td>87–93</td><td>34.3–36.6</td></tr>
-          <tr><td>34C</td><td>73–77</td><td>29–30.5</td><td>89–95</td><td>35–37.4</td></tr>
-          <tr><td>34D</td><td>73–77</td><td>29–30.5</td><td>91–97</td><td>35.8–38.2</td></tr>
-          <tr><td>36B</td><td>78–82</td><td>31–32.5</td><td>92–98</td><td>36.2–38.6</td></tr>
-          <tr><td>36C</td><td>78–82</td><td>31–32.5</td><td>94–100</td><td>37–39.4</td></tr>
-          <tr><td>36D</td><td>78–82</td><td>31–32.5</td><td>96–102</td><td>37.8–40.2</td></tr>
-          <tr><td>38B</td><td>83–87</td><td>33–34.5</td><td>97–103</td><td>38.2–40.6</td></tr>
-          <tr><td>38C</td><td>83–87</td><td>33–34.5</td><td>99–105</td><td>39–41.3</td></tr>
-          <tr><td>38D</td><td>83–87</td><td>33–34.5</td><td>101–107</td><td>39.8–42.1</td></tr>
-          <tr><td>40B</td><td>88–92</td><td>35–36.5</td><td>102–108</td><td>40.2–42.5</td></tr>
-          <tr><td>40C</td><td>88–92</td><td>35–36.5</td><td>104–110</td><td>40.9–43.3</td></tr>
-          <tr><td>42B</td><td>93–97</td><td>37–38.5</td><td>107–113</td><td>42.1–44.5</td></tr>
-          <tr><td>42C</td><td>93–97</td><td>37–38.5</td><td>109–115</td><td>42.9–45.3</td></tr>
+          <tr><td>30B</td><td>63–67</td><td>25–26.5</td><td>77–83</td><td>30.3–32.7</td><td>65</td><td>80</td><td>32A</td></tr>
+          <tr><td>32A</td><td>68–72</td><td>27–28.5</td><td>80–86</td><td>31.5–33.9</td><td>70</td><td>85</td><td>30B</td></tr>
+          <tr><td>32B</td><td>68–72</td><td>27–28.5</td><td>82–88</td><td>32.3–34.6</td><td>70</td><td>85</td><td>34A</td></tr>
+          <tr><td>32C</td><td>68–72</td><td>27–28.5</td><td>84–90</td><td>33.1–35.4</td><td>70</td><td>85</td><td>34B</td></tr>
+          <tr><td>32D</td><td>68–72</td><td>27–28.5</td><td>86–92</td><td>33.9–36.2</td><td>70</td><td>85</td><td>34C · 36B</td></tr>
+          <tr><td>34A</td><td>73–77</td><td>29–30.5</td><td>85–91</td><td>33.5–35.8</td><td>75</td><td>90</td><td>32B</td></tr>
+          <tr><td>34B</td><td>73–77</td><td>29–30.5</td><td>87–93</td><td>34.3–36.6</td><td>75</td><td>90</td><td>32C · 36A*</td></tr>
+          <tr><td>34C</td><td>73–77</td><td>29–30.5</td><td>89–95</td><td>35–37.4</td><td>75</td><td>90</td><td>32D · 36B</td></tr>
+          <tr><td>34D</td><td>73–77</td><td>29–30.5</td><td>91–97</td><td>35.8–38.2</td><td>75</td><td>90</td><td>36C · 38B</td></tr>
+          <tr><td>36B</td><td>78–82</td><td>31–32.5</td><td>92–98</td><td>36.2–38.6</td><td>80</td><td>95</td><td>34C · 32D</td></tr>
+          <tr><td>36C</td><td>78–82</td><td>31–32.5</td><td>94–100</td><td>37–39.4</td><td>80</td><td>95</td><td>34D · 38B</td></tr>
+          <tr><td>36D</td><td>78–82</td><td>31–32.5</td><td>96–102</td><td>37.8–40.2</td><td>80</td><td>95</td><td>38C · 40B</td></tr>
+          <tr><td>38B</td><td>83–87</td><td>33–34.5</td><td>97–103</td><td>38.2–40.6</td><td>85</td><td>100</td><td>36C · 34D</td></tr>
+          <tr><td>38C</td><td>83–87</td><td>33–34.5</td><td>99–105</td><td>39–41.3</td><td>85</td><td>100</td><td>36D · 40B</td></tr>
+          <tr><td>38D</td><td>83–87</td><td>33–34.5</td><td>101–107</td><td>39.8–42.1</td><td>85</td><td>100</td><td>40C · 42B</td></tr>
+          <tr><td>40B</td><td>88–92</td><td>35–36.5</td><td>102–108</td><td>40.2–42.5</td><td>90</td><td>105</td><td>38C · 36D</td></tr>
+          <tr><td>40C</td><td>88–92</td><td>35–36.5</td><td>104–110</td><td>40.9–43.3</td><td>90</td><td>105</td><td>38D · 42B</td></tr>
+          <tr><td>42B</td><td>93–97</td><td>37–38.5</td><td>107–113</td><td>42.1–44.5</td><td>95</td><td>110</td><td>40C · 38D</td></tr>
+          <tr><td>42C</td><td>93–97</td><td>37–38.5</td><td>109–115</td><td>42.9–45.3</td><td>95</td><td>110</td><td>40D*</td></tr>
         </tbody>
       </table>
     </div>
@@ -173,7 +285,7 @@
         {% endfor %}
       </div>
     {% endfor %}
-    <p class="subtle" style="margin-top:1rem;font-size:0.85rem">Example: underbust 75 cm and bust 91 cm → 34C.</p>
+    <p class="subtle" style="margin-top:1rem;font-size:0.85rem">Example: underbust 75 cm and bust 91 cm → 34C. * not cut in this house.</p>
   </section>
 
   <section id="body" class="scroll-pad" style="padding-top:4rem">
@@ -181,14 +293,28 @@
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Body & lounge</h2>
     <div style="overflow-x:auto">
       <table class="chart-table">
-        <thead><tr><th>Size</th><th>Bust cm</th><th>Waist cm</th><th>Hip cm</th><th>Bust in</th><th>Waist in</th><th>Hip in</th><th>UK</th><th>US</th><th>EU</th></tr></thead>
+        <thead><tr><th>Size</th><th>Bust cm</th><th>Waist cm</th><th>Hip cm</th><th>Bust in</th><th>Waist in</th><th>Hip in</th><th>UK</th><th>US</th><th>EU</th><th>AU</th><th>PK</th></tr></thead>
         <tbody>
-          <tr><td>XS</td><td>78–82</td><td>60–64</td><td>86–90</td><td>30.5–32.5</td><td>23.5–25</td><td>34–35.5</td><td>4–6</td><td>0–2</td><td>32–34</td></tr>
-          <tr><td>S</td><td>83–87</td><td>65–69</td><td>91–95</td><td>32.5–34.5</td><td>25.5–27</td><td>36–37.5</td><td>8–10</td><td>4–6</td><td>36–38</td></tr>
-          <tr><td>M</td><td>88–92</td><td>70–74</td><td>96–100</td><td>34.5–36</td><td>27.5–29</td><td>38–39.5</td><td>12–14</td><td>8–10</td><td>40–42</td></tr>
-          <tr><td>L</td><td>93–97</td><td>75–79</td><td>101–105</td><td>36.5–38</td><td>29.5–31</td><td>40–41.5</td><td>16–18</td><td>12–14</td><td>44–46</td></tr>
-          <tr><td>XL</td><td>98–104</td><td>80–86</td><td>106–112</td><td>38.5–41</td><td>31.5–34</td><td>41.5–44</td><td>20–22</td><td>16–18</td><td>48–50</td></tr>
-          <tr><td>XXL</td><td>105–112</td><td>87–94</td><td>113–120</td><td>41.5–44</td><td>34.5–37</td><td>44.5–47</td><td>24–26</td><td>20–22</td><td>52–54</td></tr>
+          <tr><td>XS</td><td>78–82</td><td>60–64</td><td>86–90</td><td>30.5–32.5</td><td>23.5–25</td><td>34–35.5</td><td>4–6</td><td>0–2</td><td>32–34</td><td>4–6</td><td>30–32</td></tr>
+          <tr><td>S</td><td>83–87</td><td>65–69</td><td>91–95</td><td>32.5–34.5</td><td>25.5–27</td><td>36–37.5</td><td>8–10</td><td>4–6</td><td>36–38</td><td>8–10</td><td>32–34</td></tr>
+          <tr><td>M</td><td>88–92</td><td>70–74</td><td>96–100</td><td>34.5–36</td><td>27.5–29</td><td>38–39.5</td><td>12–14</td><td>8–10</td><td>40–42</td><td>12–14</td><td>34–36</td></tr>
+          <tr><td>L</td><td>93–97</td><td>75–79</td><td>101–105</td><td>36.5–38</td><td>29.5–31</td><td>40–41.5</td><td>16–18</td><td>12–14</td><td>44–46</td><td>16–18</td><td>36–38</td></tr>
+          <tr><td>XL</td><td>98–104</td><td>80–86</td><td>106–112</td><td>38.5–41</td><td>31.5–34</td><td>41.5–44</td><td>20–22</td><td>16–18</td><td>48–50</td><td>20–22</td><td>38–40</td></tr>
+          <tr><td>XXL</td><td>105–112</td><td>87–94</td><td>113–120</td><td>41.5–44</td><td>34.5–37</td><td>44.5–47</td><td>24–26</td><td>20–22</td><td>52–54</td><td>24–26</td><td>40–42</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="kicker" style="margin-top:2rem">Panties</p>
+    <div style="overflow-x:auto">
+      <table class="chart-table">
+        <thead><tr><th>Size</th><th>Hip cm</th><th>Hip in</th><th>Waist cm</th><th>Waist in</th></tr></thead>
+        <tbody>
+          <tr><td>XS</td><td>86–90</td><td>34–35.5</td><td>60–64</td><td>23.5–25</td></tr>
+          <tr><td>S</td><td>91–95</td><td>36–37.5</td><td>65–69</td><td>25.5–27</td></tr>
+          <tr><td>M</td><td>96–100</td><td>38–39.5</td><td>70–74</td><td>27.5–29</td></tr>
+          <tr><td>L</td><td>101–105</td><td>40–41.5</td><td>75–79</td><td>29.5–31</td></tr>
+          <tr><td>XL</td><td>106–112</td><td>41.5–44</td><td>80–86</td><td>31.5–34</td></tr>
+          <tr><td>XXL</td><td>113–120</td><td>44.5–47</td><td>87–94</td><td>34.5–37</td></tr>
         </tbody>
       </table>
     </div>
@@ -197,15 +323,29 @@
   <section id="night" class="scroll-pad" style="padding-top:4rem">
     <p class="kicker">Free Size · S–XL</p>
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Nighties & babydolls</h2>
+    <div class="bars">
+      <article>
+        <p class="kicker">Centre-back length, cm</p>
+        {% assign nl = "S:82:70,M:84:78,L:86:86,XL:88:94" | split: "," %}
+        {% for c in nl %}
+          {% assign p = c | split: ":" %}
+          <div class="bar-row">
+            <span>{{ p[0] }}</span>
+            <div class="bar-track"><div class="bar-fill" style="width:{{ p[2] }}%"></div></div>
+            <span class="subtle">{{ p[1] }}</span>
+          </div>
+        {% endfor %}
+      </article>
+    </div>
     <div style="overflow-x:auto">
       <table class="chart-table">
-        <thead><tr><th>Size</th><th>Bust cm</th><th>Waist cm</th><th>Hip cm</th><th>Length cm</th><th>Note</th></tr></thead>
+        <thead><tr><th>Size</th><th>Bust cm</th><th>Waist cm</th><th>Hip cm</th><th>Length cm</th><th>Length in</th><th>Note</th></tr></thead>
         <tbody>
-          <tr><td>Free Size</td><td>83–97</td><td>65–79</td><td>91–105</td><td>78–86</td><td>Drapes S–L</td></tr>
-          <tr><td>S</td><td>83–87</td><td>65–69</td><td>91–95</td><td>82</td><td>Short hem</td></tr>
-          <tr><td>M</td><td>88–92</td><td>70–74</td><td>96–100</td><td>84</td><td>House default</td></tr>
-          <tr><td>L</td><td>93–97</td><td>75–79</td><td>101–105</td><td>86</td><td>Ease through the hip</td></tr>
-          <tr><td>XL</td><td>98–104</td><td>80–86</td><td>106–112</td><td>88</td><td>Longer strap drop</td></tr>
+          <tr><td>Free Size</td><td>83–97</td><td>65–79</td><td>91–105</td><td>78–86</td><td>30.7–33.9</td><td>Drapes S–L</td></tr>
+          <tr><td>S</td><td>83–87</td><td>65–69</td><td>91–95</td><td>82</td><td>32.3</td><td>Short hem</td></tr>
+          <tr><td>M</td><td>88–92</td><td>70–74</td><td>96–100</td><td>84</td><td>33.1</td><td>House default</td></tr>
+          <tr><td>L</td><td>93–97</td><td>75–79</td><td>101–105</td><td>86</td><td>33.9</td><td>Ease through the hip</td></tr>
+          <tr><td>XL</td><td>98–104</td><td>80–86</td><td>106–112</td><td>88</td><td>34.6</td><td>Longer strap drop</td></tr>
         </tbody>
       </table>
     </div>
@@ -214,14 +354,28 @@
   <section id="gowns" class="scroll-pad" style="padding-top:4rem">
     <p class="kicker">M–XXL</p>
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Gowns</h2>
+    <div class="bars">
+      <article>
+        <p class="kicker">Hem vs floor height, cm</p>
+        {% assign gl = "M:145 · 165–170:70,L:147 · 168–173:78,XL:149 · 170–176:86,XXL:151 · 172–178:94" | split: "," %}
+        {% for c in gl %}
+          {% assign p = c | split: ":" %}
+          <div class="bar-row">
+            <span>{{ p[0] }}</span>
+            <div class="bar-track"><div class="bar-fill" style="width:{{ p[2] }}%"></div></div>
+            <span class="subtle">{{ p[1] }}</span>
+          </div>
+        {% endfor %}
+      </article>
+    </div>
     <div style="overflow-x:auto">
       <table class="chart-table">
-        <thead><tr><th>Size</th><th>Bust cm</th><th>Waist cm</th><th>Hip cm</th><th>Length cm</th></tr></thead>
+        <thead><tr><th>Size</th><th>Bust cm</th><th>Waist cm</th><th>Hip cm</th><th>Length cm</th><th>Floor height</th><th>Length in</th></tr></thead>
         <tbody>
-          <tr><td>M</td><td>88–92</td><td>70–74</td><td>96–100</td><td>145</td></tr>
-          <tr><td>L</td><td>93–97</td><td>75–79</td><td>101–105</td><td>147</td></tr>
-          <tr><td>XL</td><td>98–104</td><td>80–86</td><td>106–112</td><td>149</td></tr>
-          <tr><td>XXL</td><td>105–112</td><td>87–94</td><td>113–120</td><td>151</td></tr>
+          <tr><td>M</td><td>88–92</td><td>70–74</td><td>96–100</td><td>145</td><td>165–170</td><td>57.1</td></tr>
+          <tr><td>L</td><td>93–97</td><td>75–79</td><td>101–105</td><td>147</td><td>168–173</td><td>57.9</td></tr>
+          <tr><td>XL</td><td>98–104</td><td>80–86</td><td>106–112</td><td>149</td><td>170–176</td><td>58.7</td></tr>
+          <tr><td>XXL</td><td>105–112</td><td>87–94</td><td>113–120</td><td>151</td><td>172–178</td><td>59.4</td></tr>
         </tbody>
       </table>
     </div>
@@ -230,17 +384,55 @@
   <section id="corset" class="scroll-pad" style="padding-top:4rem">
     <p class="kicker">Waspie & bustier</p>
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Corsetry</h2>
-    <p class="muted" style="max-width:32rem;margin-top:0.75rem">Closed is the laced waist. Open is the rib before lacing. Do not size down more than 4 cm.</p>
+    <p class="muted" style="max-width:32rem;margin-top:0.75rem">Size to the open waist. Closed is after lacing. Do not size down more than 4–6 cm.</p>
+    <div class="range-chart">
+      <p class="kicker">Rib · open · laced closed, cm · scale 50–110</p>
+      <div class="range-row"><span>XS</span><div class="range-track">
+        <i class="hip" style="left:33.3%;width:6.7%"></i>
+        <i class="waist" style="left:23.3%;width:6.7%"></i>
+        <i class="bust" style="left:13.3%;width:6.7%"></i>
+      </div></div>
+      <div class="range-row"><span>S</span><div class="range-track">
+        <i class="hip" style="left:41.7%;width:6.7%"></i>
+        <i class="waist" style="left:31.7%;width:6.7%"></i>
+        <i class="bust" style="left:21.7%;width:6.7%"></i>
+      </div></div>
+      <div class="range-row"><span>M</span><div class="range-track">
+        <i class="hip" style="left:50%;width:6.7%"></i>
+        <i class="waist" style="left:40%;width:6.7%"></i>
+        <i class="bust" style="left:30%;width:6.7%"></i>
+      </div></div>
+      <div class="range-row"><span>L</span><div class="range-track">
+        <i class="hip" style="left:58.3%;width:6.7%"></i>
+        <i class="waist" style="left:48.3%;width:6.7%"></i>
+        <i class="bust" style="left:38.3%;width:6.7%"></i>
+      </div></div>
+      <div class="range-row"><span>XL</span><div class="range-track">
+        <i class="hip" style="left:66.7%;width:10%"></i>
+        <i class="waist" style="left:56.7%;width:10%"></i>
+        <i class="bust" style="left:46.7%;width:10%"></i>
+      </div></div>
+      <div class="range-row"><span>XXL</span><div class="range-track">
+        <i class="hip" style="left:78.3%;width:11.7%"></i>
+        <i class="waist" style="left:68.3%;width:11.7%"></i>
+        <i class="bust" style="left:58.3%;width:11.7%"></i>
+      </div></div>
+      <p class="range-legend">
+        <span><b style="background:var(--accent)"></b>Closed</span>
+        <span><b style="background:var(--blush)"></b>Open</span>
+        <span><b style="background:var(--muted)"></b>Rib</span>
+      </p>
+    </div>
     <div style="overflow-x:auto">
       <table class="chart-table">
-        <thead><tr><th>Size</th><th>Waist closed cm</th><th>Waist open cm</th><th>Rib cm</th></tr></thead>
+        <thead><tr><th>Size</th><th>Waist closed cm</th><th>Waist open cm</th><th>Rib cm</th><th>Closed in</th><th>Open in</th><th>Reduction</th></tr></thead>
         <tbody>
-          <tr><td>XS</td><td>58–62</td><td>64–68</td><td>70–74</td></tr>
-          <tr><td>S</td><td>63–67</td><td>69–73</td><td>75–79</td></tr>
-          <tr><td>M</td><td>68–72</td><td>74–78</td><td>80–84</td></tr>
-          <tr><td>L</td><td>73–77</td><td>79–83</td><td>85–89</td></tr>
-          <tr><td>XL</td><td>78–84</td><td>84–90</td><td>90–96</td></tr>
-          <tr><td>XXL</td><td>85–92</td><td>91–98</td><td>97–104</td></tr>
+          <tr><td>XS</td><td>58–62</td><td>64–68</td><td>70–74</td><td>22.8–24.4</td><td>25.2–26.8</td><td>4–6</td></tr>
+          <tr><td>S</td><td>63–67</td><td>69–73</td><td>75–79</td><td>24.8–26.4</td><td>27.2–28.7</td><td>4–6</td></tr>
+          <tr><td>M</td><td>68–72</td><td>74–78</td><td>80–84</td><td>26.8–28.3</td><td>29.1–30.7</td><td>4–6</td></tr>
+          <tr><td>L</td><td>73–77</td><td>79–83</td><td>85–89</td><td>28.7–30.3</td><td>31.1–32.7</td><td>4–6</td></tr>
+          <tr><td>XL</td><td>78–84</td><td>84–90</td><td>90–96</td><td>30.7–33.1</td><td>33.1–35.4</td><td>4–6</td></tr>
+          <tr><td>XXL</td><td>85–92</td><td>91–98</td><td>97–104</td><td>33.5–36.2</td><td>35.8–38.6</td><td>4–6</td></tr>
         </tbody>
       </table>
     </div>
@@ -249,16 +441,25 @@
   <section id="hose" class="scroll-pad" style="padding-top:4rem">
     <p class="kicker">Hold-ups & seamed</p>
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Hosiery</h2>
+    <div class="range-chart">
+      <p class="kicker">Height range, cm · scale 145–185</p>
+      <div class="range-row"><span>XS</span><div class="range-track"><i class="bust" style="left:12.5%;width:20%"></i></div></div>
+      <div class="range-row"><span>S</span><div class="range-track"><i class="bust" style="left:25%;width:20%"></i></div></div>
+      <div class="range-row"><span>M</span><div class="range-track"><i class="bust" style="left:37.5%;width:20%"></i></div></div>
+      <div class="range-row"><span>L</span><div class="range-track"><i class="bust" style="left:50%;width:20%"></i></div></div>
+      <div class="range-row"><span>XL</span><div class="range-track"><i class="bust" style="left:62.5%;width:20%"></i></div></div>
+      <div class="range-row"><span>XXL</span><div class="range-track"><i class="bust" style="left:70%;width:22.5%"></i></div></div>
+    </div>
     <div style="overflow-x:auto">
       <table class="chart-table">
-        <thead><tr><th>Size</th><th>Height cm</th><th>Inseam cm</th><th>Thigh cm</th></tr></thead>
+        <thead><tr><th>Size</th><th>Height cm</th><th>Inseam cm</th><th>Thigh cm</th><th>Foot cm</th><th>Height in</th><th>Thigh in</th></tr></thead>
         <tbody>
-          <tr><td>XS</td><td>150–158</td><td>70–74</td><td>48–52</td></tr>
-          <tr><td>S</td><td>155–163</td><td>73–77</td><td>50–54</td></tr>
-          <tr><td>M</td><td>160–168</td><td>76–80</td><td>53–57</td></tr>
-          <tr><td>L</td><td>165–173</td><td>79–83</td><td>56–61</td></tr>
-          <tr><td>XL</td><td>170–178</td><td>82–86</td><td>60–66</td></tr>
-          <tr><td>XXL</td><td>173–182</td><td>84–88</td><td>65–72</td></tr>
+          <tr><td>XS</td><td>150–158</td><td>70–74</td><td>48–52</td><td>22–23.5</td><td>59–62</td><td>19–20.5</td></tr>
+          <tr><td>S</td><td>155–163</td><td>73–77</td><td>50–54</td><td>23–24.5</td><td>61–64</td><td>19.7–21.3</td></tr>
+          <tr><td>M</td><td>160–168</td><td>76–80</td><td>53–57</td><td>24–25.5</td><td>63–66</td><td>20.9–22.4</td></tr>
+          <tr><td>L</td><td>165–173</td><td>79–83</td><td>56–61</td><td>25–26.5</td><td>65–68</td><td>22–24</td></tr>
+          <tr><td>XL</td><td>170–178</td><td>82–86</td><td>60–66</td><td>26–27.5</td><td>67–70</td><td>23.6–26</td></tr>
+          <tr><td>XXL</td><td>173–182</td><td>84–88</td><td>65–72</td><td>27–29</td><td>68–72</td><td>25.6–28.3</td></tr>
         </tbody>
       </table>
     </div>
@@ -269,14 +470,14 @@
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Swim</h2>
     <div style="overflow-x:auto">
       <table class="chart-table">
-        <thead><tr><th>Size</th><th>Bust cm</th><th>Hip cm</th><th>Nearest cup</th></tr></thead>
+        <thead><tr><th>Size</th><th>Bust cm</th><th>Hip cm</th><th>Bust in</th><th>Hip in</th><th>Nearest cup</th></tr></thead>
         <tbody>
-          <tr><td>XS</td><td>78–82</td><td>86–90</td><td>30B / 32A</td></tr>
-          <tr><td>S</td><td>83–87</td><td>91–95</td><td>32B / 32C</td></tr>
-          <tr><td>M</td><td>88–92</td><td>96–100</td><td>34B / 34C</td></tr>
-          <tr><td>L</td><td>93–97</td><td>101–105</td><td>36C / 36D</td></tr>
-          <tr><td>XL</td><td>98–104</td><td>106–112</td><td>38C / 38D</td></tr>
-          <tr><td>XXL</td><td>105–112</td><td>113–120</td><td>40C / 42C</td></tr>
+          <tr><td>XS</td><td>78–82</td><td>86–90</td><td>30.7–32.3</td><td>33.9–35.4</td><td>30B / 32A</td></tr>
+          <tr><td>S</td><td>83–87</td><td>91–95</td><td>32.7–34.3</td><td>35.8–37.4</td><td>32B / 32C</td></tr>
+          <tr><td>M</td><td>88–92</td><td>96–100</td><td>34.6–36.2</td><td>37.8–39.4</td><td>34B / 34C</td></tr>
+          <tr><td>L</td><td>93–97</td><td>101–105</td><td>36.6–38.2</td><td>39.8–41.3</td><td>36C / 36D</td></tr>
+          <tr><td>XL</td><td>98–104</td><td>106–112</td><td>38.6–40.9</td><td>41.7–44.1</td><td>38C / 38D</td></tr>
+          <tr><td>XXL</td><td>105–112</td><td>113–120</td><td>41.3–44.1</td><td>44.5–47.2</td><td>40C / 42C</td></tr>
         </tbody>
       </table>
     </div>
@@ -287,12 +488,12 @@
     <h2 class="display" style="font-style:italic;margin:0.5rem 0 0">Free size</h2>
     <div style="overflow-x:auto">
       <table class="chart-table">
-        <thead><tr><th>Piece</th><th>Fits</th><th>Note</th></tr></thead>
+        <thead><tr><th>Piece</th><th>Fits</th><th>Bust cm</th><th>Hip cm</th><th>Note</th></tr></thead>
         <tbody>
-          <tr><td>Body stocking</td><td>S–XL</td><td>Stretch lace, one piece</td></tr>
-          <tr><td>Sarong</td><td>S–XXL</td><td>Tie at the hip</td></tr>
-          <tr><td>Silk mask</td><td>All</td><td>Adjustable strap</td></tr>
-          <tr><td>Body chain</td><td>S–L</td><td>Clasp at the nape</td></tr>
+          <tr><td>Body stocking</td><td>S–XL</td><td>83–104</td><td>91–112</td><td>Stretch lace, one piece</td></tr>
+          <tr><td>Sarong</td><td>S–XXL</td><td>—</td><td>91–120</td><td>Tie at the hip</td></tr>
+          <tr><td>Silk mask</td><td>All</td><td>—</td><td>—</td><td>Adjustable strap</td></tr>
+          <tr><td>Body chain</td><td>S–L</td><td>83–97</td><td>—</td><td>Clasp at the nape</td></tr>
         </tbody>
       </table>
     </div>

@@ -1,4 +1,4 @@
-# Femme Silk Atelier — Shopify theme 1.1.0
+# Femme Silk Atelier — Shopify theme 1.2.0
 
 Online Store 2.0 boutique theme. Folders at **repo / zip root**.
 

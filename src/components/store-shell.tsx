@@ -33,47 +33,48 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-dvh bg-bg text-fg">
       <InstallBanner />
       <header className="sticky top-0 z-30 border-b border-accent/20 bg-bg/85 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
-          <Link to="/" className="flex flex-col leading-none">
-            <span className="font-display text-xl italic tracking-[0.32em] text-accent">FEMME</span>
-            <span className="mt-1 text-2xs uppercase tracking-[0.28em] text-muted">Silk Atelier</span>
+        <div className="mx-auto flex h-16 min-w-0 max-w-6xl items-center justify-between gap-2 px-3 sm:px-4">
+          <Link to="/" className="flex min-w-0 shrink flex-col leading-none">
+            <span className="font-display text-lg italic tracking-[0.18em] text-accent sm:text-xl sm:tracking-[0.32em]">FEMME</span>
+            <span className="mt-1 hidden text-2xs uppercase tracking-[0.28em] text-muted min-[380px]:block">Silk Atelier</span>
           </Link>
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden min-w-0 items-center gap-1 md:flex">
             <NavLink to="/" label="Home" active={path === "/"} />
             <NavLink to="/shop" label="Shop" active={path.startsWith("/shop")} />
             <NavLink to="/size-guide" label="Sizes" active={path === "/size-guide"} />
             <NavLink to="/about" label="Atelier" active={path === "/about"} />
             <NavLink to="/contact" label="Contact" active={path === "/contact"} />
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {admin && <NavLink to="/admin" label="Orders" active={path === "/admin"} />}
             {isPending ? (
-              <div className="h-11 w-20 animate-pulse rounded-full bg-elevated" />
+              <div className="h-11 w-16 animate-pulse rounded-full bg-elevated sm:w-20" />
             ) : user ? (
               <Link
                 to="/account"
-                className="inline-flex h-11 items-center rounded-full border border-line px-3 text-xs uppercase tracking-wider text-accent transition-colors duration-150 hover:border-accent"
+                className="hidden h-11 items-center rounded-full border border-line px-3 text-xs uppercase tracking-wider text-accent transition-colors duration-150 hover:border-accent sm:inline-flex"
               >
                 Account
               </Link>
             ) : (
               <Link
                 to="/login"
-                className="inline-flex h-11 items-center rounded-full border border-line px-3 text-xs uppercase tracking-wider text-accent transition-colors duration-150 hover:border-accent"
+                className="hidden h-11 items-center rounded-full border border-line px-3 text-xs uppercase tracking-wider text-accent transition-colors duration-150 hover:border-accent sm:inline-flex"
               >
                 Sign in
               </Link>
             )}
             <Link
               to="/cart"
-              className="inline-flex h-11 items-center gap-2 rounded-full border border-accent/40 bg-accent px-3 text-xs uppercase tracking-wider text-accent-fg"
+              className="inline-flex h-11 items-center gap-1.5 rounded-full border border-accent/40 bg-accent px-2.5 text-xs uppercase tracking-wider text-accent-fg sm:gap-2 sm:px-3"
             >
-              <ShoppingBag className="size-4" />
-              Bag <em className="not-italic">{count}</em>
+              <ShoppingBag className="size-4 shrink-0" />
+              <span className="hidden sm:inline">Bag</span>
+              <em className="not-italic">{count}</em>
             </Link>
             <button
               type="button"
-              className="grid h-11 w-11 place-items-center md:hidden"
+              className="grid h-11 w-11 shrink-0 place-items-center md:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label="Menu"
             >

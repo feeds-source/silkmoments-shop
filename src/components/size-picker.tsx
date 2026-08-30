@@ -24,7 +24,7 @@ export function SizePicker({
       <label className="block">
         <span className="text-2xs uppercase tracking-[0.24em] text-accent">Size</span>
         <select
-          className="mt-2 h-11 w-full rounded-full border border-line bg-elevated px-3 text-sm text-fg"
+          className="mt-2 h-11 w-full min-w-0 max-w-full truncate rounded-full border border-line bg-elevated px-3 text-sm text-fg"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
@@ -54,7 +54,7 @@ export function SizePicker({
               key={s}
               type="button"
               disabled={left <= 0}
-              className={`h-11 min-w-11 rounded-full border px-3 text-xs uppercase tracking-wider disabled:cursor-not-allowed disabled:opacity-40 ${
+              className={`h-11 min-w-11 max-w-full shrink-0 rounded-full border px-3 text-xs uppercase tracking-wider disabled:cursor-not-allowed disabled:opacity-40 ${
                 on ? "border-blush bg-blush text-fg" : "border-line text-muted"
               }`}
               onClick={() => onChange(s)}

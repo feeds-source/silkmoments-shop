@@ -10,7 +10,7 @@ export function AtelierFooter() {
       <div className="relative mx-auto max-w-6xl px-4 py-14 pb-28 md:py-20 md:pb-20">
         <div className="grid-footer">
           <div className="max-w-lg">
-            <p className="font-display text-4xl tracking-[0.28em] text-accent md:text-5xl">FEMME</p>
+            <p className="font-display text-4xl tracking-[0.12em] text-accent sm:tracking-[0.28em] md:text-5xl">FEMME</p>
             <p className="mt-2 text-xs uppercase tracking-[0.28em] text-muted">Silk Atelier</p>
             <p className="mt-5 font-display text-2xl italic leading-snug text-fg md:text-3xl">
               Exotic silk, cut for the body.

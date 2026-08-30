@@ -20,16 +20,18 @@ export function ProductCard({ product, wide }: { product: Product; wide?: boolea
   }, [product, qty, size]);
 
   return (
-    <article className={`overflow-hidden rounded-xl border border-line bg-surface ${wide ? "span-wide" : ""}`}>
-      <Link to="/shop/$productId" params={{ productId: product.id }} className="block">
-        <ProductMedia product={product} className="media-fill h-full min-h-52" />
-        <div className="p-3">
-          <p className="text-2xs uppercase tracking-widest text-accent">{product.category}</p>
-          <h3 className="mt-1 text-sm text-fg">{product.name}</h3>
-          <p className="mt-1 font-semibold tabular-nums text-accent">{money(product.price)}</p>
-        </div>
+    <article className={`product-tile min-w-0 overflow-hidden rounded-xl border border-line bg-surface ${wide ? "span-wide" : ""}`}>
+      <Link to="/shop/$productId" params={{ productId: product.id }} className="block min-w-0">
+        <ProductMedia product={product} className="media-fill min-h-44" />
       </Link>
-      <div className="px-3 pb-3">
+      <div className="min-w-0 p-3">
+        <Link to="/shop/$productId" params={{ productId: product.id }} className="block min-w-0">
+          <p className="truncate text-2xs uppercase tracking-widest text-accent">{product.category}</p>
+          <h3 className="mt-1 text-sm leading-snug break-words text-fg">{product.name}</h3>
+          <p className="mt-1 font-semibold tabular-nums text-accent">{money(product.price)}</p>
+        </Link>
+      </div>
+      <div className="min-w-0 px-3 pb-3">
         <SizePicker product={product} value={size} onChange={setSize} variant="select" />
         <button
           type="button"

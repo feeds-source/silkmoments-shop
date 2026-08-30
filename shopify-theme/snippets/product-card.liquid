@@ -1,8 +1,8 @@
 {% if product.tags contains 'featured' or product.tags contains 'Exotic' or product.tags contains 'Best seller' %}
   {% assign wide = true %}
 {% endif %}
-<article class="{% if wide %}span-wide{% endif %}">
-  <a href="{{ product.url }}">
+<article class="product-tile{% if wide %} span-wide{% endif %}">
+  <a href="{{ product.url }}" class="card-media-link">
     <div class="card-media media-fill">
       {% if product.featured_image %}
         {{ product.featured_image | image_url: width: 900 | image_tag: class: 'ken', alt: product.title }}
@@ -13,11 +13,11 @@
         <span class="tag">{{ product.tags.first }}</span>
       {% endif %}
     </div>
-    <div class="card-body">
-      <p class="cat">{{ product.type | default: product.collections.first.title }}</p>
-      <h3>{{ product.title }}</h3>
-      <p class="price">{{ product.price | money }}</p>
-    </div>
+  </a>
+  <a href="{{ product.url }}" class="card-body">
+    <p class="cat">{{ product.type | default: product.collections.first.title }}</p>
+    <h3>{{ product.title }}</h3>
+    <p class="price">{{ product.price | money }}</p>
   </a>
   <div class="card-actions">
     {% form 'product', product, data-ajax: true %}

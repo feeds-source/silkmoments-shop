@@ -19,8 +19,8 @@ export function InstallBanner() {
 
   return (
     <div className="border-b border-line bg-elevated px-4 py-3 text-sm text-fg">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
-        <p className="text-muted">
+      <div className="mx-auto flex max-w-6xl min-w-0 flex-wrap items-center justify-between gap-3">
+        <p className="min-w-0 flex-1 text-muted">
           Install Femme on your home screen for a full-screen boutique.
         </p>
         <div className="flex shrink-0 items-center gap-2">

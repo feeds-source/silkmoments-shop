@@ -32,7 +32,7 @@ function Home() {
               <div className="hero-veil absolute inset-0" />
               <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
                 <p className="text-2xs uppercase tracking-[0.24em] text-accent">{a.cat}</p>
-                <h3 className="mt-1 font-display text-2xl italic text-fg md:text-3xl">{a.title}</h3>
+                <h3 className="mt-1 font-display text-xl italic leading-snug break-words text-fg md:text-3xl">{a.title}</h3>
               </div>
             </Link>
           ))}
@@ -40,7 +40,7 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-14">
-        <div className="flex items-end justify-between">
+        <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="text-xs uppercase tracking-[0.28em] text-accent">Exotic collection</p>
             <h2 className="mt-2 font-display text-3xl italic text-fg md:text-4xl">Lingerie in motion</h2>

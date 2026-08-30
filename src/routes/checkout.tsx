@@ -163,13 +163,13 @@ function CheckoutPage() {
             ) : (
               <ul className="mt-3">
                 {cart.map((l) => (
-                  <li key={`${l.product.id}-${l.size}`} className="grid grid-cols-[48px_1fr_auto] items-center gap-2 border-b border-line py-3">
+                  <li key={`${l.product.id}-${l.size}`} className="grid grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-2 border-b border-line py-3">
                     <div
-                      className="h-14 w-12 bg-cover bg-center"
+                      className="h-14 w-12 shrink-0 bg-cover bg-center"
                       style={{ backgroundImage: `url(${l.product.image})` }}
                     />
-                    <div>
-                      <strong className="text-sm">{l.product.name}</strong>
+                    <div className="min-w-0">
+                      <strong className="text-sm break-words">{l.product.name}</strong>
                       <p className="text-xs text-muted">{l.size}</p>
                       <div className="mt-1 flex items-center gap-2">
                         <button type="button" className="h-11 w-11 border border-line" onClick={() => setQty(l.product.id, l.size, l.qty - 1)}>

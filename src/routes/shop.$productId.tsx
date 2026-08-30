@@ -38,11 +38,11 @@ function ProductPage() {
       <Link to="/shop" search={{ cat: product.category }} className="text-sm text-accent">
         Back to {product.category}
       </Link>
-      <div className="mt-6 grid gap-8 md:grid-cols-2">
-        <ProductMedia product={product} className="min-h-96 rounded-xl border border-line" />
-        <div>
+      <div className="mt-6 grid min-w-0 gap-8 md:grid-cols-2">
+        <ProductMedia product={product} className="min-h-72 overflow-hidden rounded-xl border border-line sm:min-h-96" />
+        <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.24em] text-accent">{product.category}</p>
-          <h1 className="mt-2 font-display text-4xl text-fg">{product.name}</h1>
+          <h1 className="mt-2 font-display text-3xl leading-tight break-words text-fg sm:text-4xl">{product.name}</h1>
           <p className="mt-3 text-xl font-semibold tabular-nums text-accent">{money(product.price)}</p>
           <p className="mt-4 max-w-md text-muted">{product.description}</p>
           <div className="mt-6">
@@ -58,7 +58,7 @@ function ProductPage() {
           <button
             type="button"
             disabled={left <= 0}
-            className="mt-8 h-12 rounded-full bg-accent px-8 text-xs font-semibold uppercase tracking-widest text-accent-fg disabled:opacity-40"
+            className="mt-8 h-12 max-w-full rounded-full bg-accent px-6 text-xs font-semibold uppercase tracking-widest text-accent-fg disabled:opacity-40 sm:px-8"
             onClick={() => {
               const ok = add(product.id, picked);
               setNote(ok ? `Added · ${picked}` : "That size is gone");

@@ -34,6 +34,21 @@
     background: var(--color-bg);
     color: var(--color-fg);
     font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  li,
+  label,
+  td,
+  th {
+    overflow-wrap: break-word;
+  }
+  img,
+  video {
+    max-width: 100%;
   }
   body {
     line-height: 1.5;
@@ -129,7 +144,13 @@
   }
   .grid-bento > article {
     display: grid;
-    grid-template-rows: minmax(13rem, 1fr) auto;
+    grid-template-rows: auto auto auto;
+    min-width: 0;
+    align-content: start;
+  }
+  .grid-bento > article > * {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .grid-shop {
@@ -140,10 +161,21 @@
   }
   .grid-shop > article {
     display: grid;
-    grid-template-rows: minmax(12rem, 1fr) auto auto;
+    grid-template-rows: auto auto auto;
+    min-width: 0;
+    align-content: start;
+  }
+  .grid-shop > article > * {
+    min-width: 0;
+    max-width: 100%;
   }
   .grid-shop > .span-wide {
     grid-column: 1 / -1;
+  }
+  .media-fill {
+    aspect-ratio: 3 / 4;
+    min-height: 11rem;
+    height: auto;
   }
 
   .grid-campaigns {
@@ -226,12 +258,12 @@
     grid-column: span 4;
   }
   .grid-bento > article > a {
-    display: grid;
-    grid-template-rows: 1fr auto;
+    min-width: 0;
     min-height: 0;
   }
   .grid-bento > :nth-child(1) .media-fill {
     min-height: 22rem;
+    aspect-ratio: auto;
   }
 
   .grid-shop {
@@ -242,6 +274,7 @@
   }
   .grid-shop > .span-wide .media-fill {
     min-height: 20rem;
+    aspect-ratio: auto;
   }
 
   .grid-campaigns {
@@ -285,5 +318,26 @@
   .ken,
   .ken-hover {
     transform: none;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
+  body,
+  #app {
+    background: #fff !important;
+    color: #1a1210 !important;
+  }
+  a {
+    color: inherit !important;
+    text-decoration: none;
+  }
+  table,
+  section {
+    break-inside: avoid;
   }
 }
