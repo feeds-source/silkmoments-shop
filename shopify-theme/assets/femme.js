@@ -223,8 +223,6 @@
     fit.addEventListener("input", render);
   }
 
-<<<<<<< HEAD
-=======
   // House catalog — used when Shopify has no products yet (GitHub / zip preview).
   const HOUSE = [
     ["everyday-soft-bra","Everyday Soft Cup Bra","Bras",42],
@@ -362,7 +360,6 @@
     container.innerHTML = html;
   }
 
->>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
   // Predictive Search
   const searchModal = document.querySelector("#predictive-search-modal");
   const searchInput = document.querySelector("#Search-In-Modal");
@@ -376,10 +373,7 @@
     searchModal.classList.add("is-open");
     searchModal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
-<<<<<<< HEAD
-=======
     if (searchResults && !searchInput?.value.trim()) renderHouseHits(searchResults, searchHouse(""), "");
->>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
     setTimeout(() => searchInput?.focus(), 100);
   };
 
@@ -394,31 +388,13 @@
   searchCloseBtns.forEach((btn) => btn.addEventListener("click", closeSearch));
 
   document.addEventListener("keydown", (e) => {
-<<<<<<< HEAD
-    if (e.key === "Escape" && searchModal?.classList.contains("is-open")) {
-      closeSearch();
-    }
-=======
     if (e.key === "Escape" && searchModal?.classList.contains("is-open")) closeSearch();
->>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
   });
 
   let debounceTimer;
   searchInput?.addEventListener("input", (e) => {
     const query = e.target.value.trim();
     clearTimeout(debounceTimer);
-<<<<<<< HEAD
-
-    if (!query || query.length < 2) {
-      if (searchResults) searchResults.innerHTML = "";
-      if (searchLoading) searchLoading.hidden = true;
-      return;
-    }
-
-    if (searchLoading) searchLoading.hidden = false;
-
-    debounceTimer = setTimeout(async () => {
-=======
     if (!query || query.length < 2) {
       if (searchResults) renderHouseHits(searchResults, searchHouse(""), "");
       if (searchLoading) searchLoading.hidden = true;
@@ -429,56 +405,10 @@
       const house = searchHouse(query, 6);
       let shopProducts = [];
       let shopCollections = [];
->>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
       try {
         const url = `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product,collection&resources[limit]=6`;
         const res = await fetch(url);
         const data = await res.json();
-<<<<<<< HEAD
-        if (searchLoading) searchLoading.hidden = true;
-
-        const products = data.resources?.results?.products || [];
-        const collections = data.resources?.results?.collections || [];
-
-        if (!products.length && !collections.length) {
-          searchResults.innerHTML = `<p class="muted" style="padding:1rem 0">No pieces found matching "${query}".</p>`;
-          return;
-        }
-
-        let html = "";
-        if (collections.length) {
-          html += `<div style="margin-bottom:1.5rem"><p class="kicker">Aisles & Collections</p><div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem">`;
-          collections.forEach((c) => {
-            html += `<a class="pill" href="${c.url}">${c.title}</a>`;
-          });
-          html += `</div></div>`;
-        }
-
-        if (products.length) {
-          html += `<p class="kicker">Pieces in the Atelier</p><div class="predictive-grid">`;
-          products.forEach((p) => {
-            const img = p.image ? `<img src="${p.image}" alt="${p.title}">` : "";
-            html += `
-              <a class="predictive-item" href="${p.url}">
-                ${img}
-                <div>
-                  <strong style="font-size:0.9rem;display:block;color:var(--fg)">${p.title}</strong>
-                  <span class="gold" style="font-size:0.85rem">${p.price ? '$' + Number(p.price).toFixed(2) : ''}</span>
-                </div>
-              </a>
-            `;
-          });
-          html += `</div>`;
-        }
-
-        searchResults.innerHTML = html;
-      } catch (err) {
-        if (searchLoading) searchLoading.hidden = true;
-        searchResults.innerHTML = `<p class="muted">Search temporarily unavailable.</p>`;
-      }
-    }, 250);
-  });
-=======
         shopProducts = data.resources?.results?.products || [];
         shopCollections = data.resources?.results?.collections || [];
       } catch (err) { /* house catalog still renders */ }
@@ -536,5 +466,4 @@
       if (pageCount) pageCount.textContent = n ? `${n} ${n === 1 ? "piece" : "pieces"}` : `No pieces found matching “${q}”.`;
     }
   }
->>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
 })();

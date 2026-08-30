@@ -2,11 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Femme Silk Atelier",
-<<<<<<< HEAD
-    "theme_version": "2.1.0",
-=======
     "theme_version": "2.2.0",
->>>>>>> b1e5ef5 (Ship house 2.2.0: cinematic Shop, Sizes, Atelier, and Search.)
     "theme_author": "Silk Moments",
     "theme_documentation_url": "https://www.silkmoments.com/docs",
     "theme_support_url": "https://www.silkmoments.com/support"
