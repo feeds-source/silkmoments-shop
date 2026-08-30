@@ -1,8 +1,14 @@
 {% style %}
   :root {
-    --bg: {{ settings.color_bg }};
-    --fg: {{ settings.color_fg }};
-    --accent: {{ settings.color_accent }};
-    --blush: {{ settings.color_blush }};
+    --bg: {{ settings.color_bg | default: '#0c0a0b' }};
+    --surface: {{ settings.color_surface | default: '#161114' }};
+    --elevated: {{ settings.color_elevated | default: '#1e171a' }};
+    --fg: {{ settings.color_fg | default: '#f4efe6' }};
+    --muted: {{ settings.color_muted | default: '#b7a792' }};
+    --subtle: {{ settings.color_subtle | default: '#8a7a6c' }};
+    --accent: {{ settings.color_accent | default: '#d4b06a' }};
+    --accent-fg: {{ settings.color_accent_fg | default: '#1a1210' }};
+    --blush: {{ settings.color_blush | default: '#c45b7a' }};
+    --line: {{ settings.color_line | default: '#3a2d32' }};
   }
 {% endstyle %}

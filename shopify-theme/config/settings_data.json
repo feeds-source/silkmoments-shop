@@ -1,12 +1,86 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "current": {
-    "brand_name": "FEMME",
-    "brand_sub": "Silk Atelier",
-    "brand_line": "Exotic silk, cut for the body.",
-    "contact_email": "info@silkmoments.com",
-    "color_bg": "#0c0a0b",
-    "color_fg": "#f4efe6",
-    "color_accent": "#d4b06a",
-    "color_blush": "#c45b7a"
+  "current": "Noir Atelier",
+  "presets": {
+    "Noir Atelier": {
+      "brand_name": "FEMME",
+      "brand_sub": "Silk Atelier",
+      "brand_line": "Exotic silk, cut for the body.",
+      "contact_email": "info@silkmoments.com",
+      "show_announcement": true,
+      "announcement_text": "Complimentary atelier packaging on all orders · Worldwide delivery",
+      "color_bg": "#0c0a0b",
+      "color_surface": "#161114",
+      "color_elevated": "#1e171a",
+      "color_fg": "#f4efe6",
+      "color_muted": "#b7a792",
+      "color_subtle": "#8a7a6c",
+      "color_accent": "#d4b06a",
+      "color_accent_fg": "#1a1210",
+      "color_blush": "#c45b7a",
+      "color_line": "#3a2d32",
+      "cart_type": "drawer",
+      "enable_cart_notes": true,
+      "free_shipping_threshold": 150,
+      "show_currency_selector": true,
+      "show_language_selector": true,
+      "show_payment_icons": true
+    },
+    "Champagne Pearl": {
+      "brand_name": "FEMME",
+      "brand_sub": "Silk Atelier",
+      "brand_line": "Elegance woven in pure silk and pearls.",
+      "contact_email": "concierge@silkmoments.com",
+      "show_announcement": true,
+      "announcement_text": "Private bridal atelier appointments available · Complimentary shipping over $150",
+      "color_bg": "#faf7f2",
+      "color_surface": "#f2eee7",
+      "color_elevated": "#e8e1d7",
+      "color_fg": "#1e1a17",
+      "color_muted": "#6b5e53",
+      "color_subtle": "#9c8c7f",
+      "color_accent": "#b8893d",
+      "color_accent_fg": "#ffffff",
+      "color_blush": "#c2637a",
+      "color_line": "#ded6cb",
+      "cart_type": "drawer",
+      "enable_cart_notes": true,
+      "free_shipping_threshold": 150,
+      "show_currency_selector": true,
+      "show_language_selector": true,
+      "show_payment_icons": true
+    },
+    "Emerald Velvet": {
+      "brand_name": "FEMME",
+      "brand_sub": "Silk Atelier",
+      "brand_line": "Jeweled silks and seductive silhouettes.",
+      "contact_email": "orders@silkmoments.com",
+      "show_announcement": true,
+      "announcement_text": "The Emerald & Noir collection has arrived · Express delivery worldwide",
+      "color_bg": "#071410",
+      "color_surface": "#0c201a",
+      "color_elevated": "#122c24",
+      "color_fg": "#f5f3ec",
+      "color_muted": "#96aba1",
+      "color_subtle": "#698175",
+      "color_accent": "#e0bb6b",
+      "color_accent_fg": "#0c1a15",
+      "color_blush": "#b84557",
+      "color_line": "#1e3c33",
+      "cart_type": "drawer",
+      "enable_cart_notes": true,
+      "free_shipping_threshold": 150,
+      "show_currency_selector": true,
+      "show_language_selector": true,
+      "show_payment_icons": true
+    }
   }
 }

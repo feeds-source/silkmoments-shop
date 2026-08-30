@@ -34,12 +34,12 @@
       "type": "aisles-grid",
       "settings": { "kicker": "New aisles", "title": "More of the house" },
       "blocks": {
-        "a1": { "type": "aisle", "settings": { "kicker": "Babydoll", "title": "Short lace night", "fallback": "aisle-babydoll.jpg" } },
-        "a2": { "type": "aisle", "settings": { "kicker": "Bra Sets", "title": "Balconette pairs", "fallback": "aisle-sets.jpg" } },
-        "a3": { "type": "aisle", "settings": { "kicker": "Gowns", "title": "Satin after dusk", "fallback": "aisle-gowns.jpg" } },
-        "a4": { "type": "aisle", "settings": { "kicker": "Swim", "title": "Jewel bikini", "fallback": "aisle-swim.jpg" } },
-        "a5": { "type": "aisle", "settings": { "kicker": "Corsetry", "title": "Boning & gold", "fallback": "aisle-corset.jpg" } },
-        "a6": { "type": "aisle", "settings": { "kicker": "Body Stockings", "title": "Sheer noir", "fallback": "aisle-body.jpg" } }
+        "a1": { "type": "aisle", "settings": { "kicker": "Babydoll", "title": "Short lace night", "fallback": "ruby-babydoll.jpg" } },
+        "a2": { "type": "aisle", "settings": { "kicker": "Bra Sets", "title": "Balconette pairs", "fallback": "lace-balconette-set.jpg" } },
+        "a3": { "type": "aisle", "settings": { "kicker": "Gowns", "title": "Satin after dusk", "fallback": "satin-gown.jpg" } },
+        "a4": { "type": "aisle", "settings": { "kicker": "Swim", "title": "Jewel bikini", "fallback": "silk-bikini.jpg" } },
+        "a5": { "type": "aisle", "settings": { "kicker": "Corsetry", "title": "Boning & gold", "fallback": "emerald-bustier.jpg" } },
+        "a6": { "type": "aisle", "settings": { "kicker": "Body Stockings", "title": "Sheer noir", "fallback": "body-stocking.jpg" } }
       },
       "block_order": ["a1", "a2", "a3", "a4", "a5", "a6"]
     },

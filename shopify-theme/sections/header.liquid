@@ -1,9 +1,28 @@
+{% if settings.show_announcement and settings.announcement_text != blank %}
+  <div class="announcement-bar" role="region" aria-label="Announcement">
+    <div class="wrap announcement-bar__inner">
+      {% if settings.announcement_link != blank %}
+        <a href="{{ settings.announcement_link }}" class="announcement-bar__link">
+          {{ settings.announcement_text }}
+        </a>
+      {% else %}
+        <span>{{ settings.announcement_text }}</span>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
 <header class="site-header">
   <div class="wrap site-header__bar">
     <a class="brand" href="{{ routes.root_url }}">
-      <span class="brand__name">{{ settings.brand_name }}</span>
-      <span class="brand__sub">{{ settings.brand_sub }}</span>
+      {% if settings.logo != blank %}
+        {{ settings.logo | image_url: width: 300 | image_tag: class: 'brand__logo', alt: shop.name }}
+      {% else %}
+        <span class="brand__name">{{ settings.brand_name | default: 'FEMME' }}</span>
+        <span class="brand__sub">{{ settings.brand_sub | default: 'Silk Atelier' }}</span>
+      {% endif %}
     </a>
+
     <nav class="nav-desk" aria-label="Primary">
       <a href="{{ routes.root_url }}" class="{% if request.page_type == 'index' %}is-on{% endif %}">Home</a>
       <a href="{{ routes.all_products_collection_url }}" class="{% if request.page_type == 'collection' or request.page_type == 'product' %}is-on{% endif %}">Shop</a>
@@ -11,18 +30,26 @@
       <a href="{{ pages.about.url | default: pages['the-atelier'].url }}">Atelier</a>
       <a href="{{ pages.contact.url }}">Contact</a>
     </nav>
+
     <div class="header-actions">
+      <button type="button" class="pill search-pill" data-search-open aria-label="Search the atelier">
+        <span aria-hidden="true">🔍</span> Search
+      </button>
+
       {% if shop.customer_accounts_enabled %}
         <a class="pill" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
           {% if customer %}Account{% else %}Sign in{% endif %}
         </a>
       {% endif %}
-      <a class="pill bag-pill" href="{{ routes.cart_url }}">
+
+      <a class="pill bag-pill" href="{{ routes.cart_url }}" data-cart-trigger>
         Bag <span data-cart-count>{{ cart.item_count }}</span>
       </a>
+
       <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-label="Menu">☰</button>
     </div>
   </div>
+
   <nav class="nav-mob" data-nav-mob>
     <a href="{{ routes.root_url }}">Home</a>
     <a href="{{ routes.all_products_collection_url }}">Shop</a>
@@ -35,6 +62,8 @@
     <a href="{{ pages.about.url }}">Atelier</a>
     <a href="{{ pages.contact.url }}">Contact</a>
   </nav>
+
+  {% render 'predictive-search' %}
 </header>
 
 {% schema %}

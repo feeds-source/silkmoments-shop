@@ -222,4 +222,98 @@
     };
     fit.addEventListener("input", render);
   }
+
+  // Predictive Search
+  const searchModal = document.querySelector("#predictive-search-modal");
+  const searchInput = document.querySelector("#Search-In-Modal");
+  const searchOpenBtn = document.querySelector("[data-search-open]");
+  const searchCloseBtns = document.querySelectorAll("[data-search-close]");
+  const searchResults = document.querySelector(".predictive-results-container");
+  const searchLoading = document.querySelector(".search-loading-indicator");
+
+  const openSearch = () => {
+    if (!searchModal) return;
+    searchModal.classList.add("is-open");
+    searchModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => searchInput?.focus(), 100);
+  };
+
+  const closeSearch = () => {
+    if (!searchModal) return;
+    searchModal.classList.remove("is-open");
+    searchModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  searchOpenBtn?.addEventListener("click", openSearch);
+  searchCloseBtns.forEach((btn) => btn.addEventListener("click", closeSearch));
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && searchModal?.classList.contains("is-open")) {
+      closeSearch();
+    }
+  });
+
+  let debounceTimer;
+  searchInput?.addEventListener("input", (e) => {
+    const query = e.target.value.trim();
+    clearTimeout(debounceTimer);
+
+    if (!query || query.length < 2) {
+      if (searchResults) searchResults.innerHTML = "";
+      if (searchLoading) searchLoading.hidden = true;
+      return;
+    }
+
+    if (searchLoading) searchLoading.hidden = false;
+
+    debounceTimer = setTimeout(async () => {
+      try {
+        const url = `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product,collection&resources[limit]=6`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (searchLoading) searchLoading.hidden = true;
+
+        const products = data.resources?.results?.products || [];
+        const collections = data.resources?.results?.collections || [];
+
+        if (!products.length && !collections.length) {
+          searchResults.innerHTML = `<p class="muted" style="padding:1rem 0">No pieces found matching "${query}".</p>`;
+          return;
+        }
+
+        let html = "";
+        if (collections.length) {
+          html += `<div style="margin-bottom:1.5rem"><p class="kicker">Aisles & Collections</p><div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem">`;
+          collections.forEach((c) => {
+            html += `<a class="pill" href="${c.url}">${c.title}</a>`;
+          });
+          html += `</div></div>`;
+        }
+
+        if (products.length) {
+          html += `<p class="kicker">Pieces in the Atelier</p><div class="predictive-grid">`;
+          products.forEach((p) => {
+            const img = p.image ? `<img src="${p.image}" alt="${p.title}">` : "";
+            html += `
+              <a class="predictive-item" href="${p.url}">
+                ${img}
+                <div>
+                  <strong style="font-size:0.9rem;display:block;color:var(--fg)">${p.title}</strong>
+                  <span class="gold" style="font-size:0.85rem">${p.price ? '$' + Number(p.price).toFixed(2) : ''}</span>
+                </div>
+              </a>
+            `;
+          });
+          html += `</div>`;
+        }
+
+        searchResults.innerHTML = html;
+      } catch (err) {
+        if (searchLoading) searchLoading.hidden = true;
+        searchResults.innerHTML = `<p class="muted">Search temporarily unavailable.</p>`;
+      }
+    }, 250);
+  });
 })();

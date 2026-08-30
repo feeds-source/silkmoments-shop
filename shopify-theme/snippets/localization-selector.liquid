@@ -1,0 +1,31 @@
+{% if settings.show_currency_selector or settings.show_language_selector %}
+  <div class="localization-selectors">
+    {% form 'localization', id: 'LocalizationForm', class: 'localization-form' %}
+      {% if settings.show_currency_selector and localization.available_countries.size > 1 %}
+        <div class="localization-dropdown">
+          <label for="HeaderCountryList" class="visually-hidden">Country/region</label>
+          <select id="HeaderCountryList" name="country_code" onchange="this.form.submit()" class="localization-select">
+            {% for country in localization.available_countries %}
+              <option value="{{ country.iso_code }}" {%- if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+
+      {% if settings.show_language_selector and localization.available_languages.size > 1 %}
+        <div class="localization-dropdown">
+          <label for="HeaderLanguageList" class="visually-hidden">Language</label>
+          <select id="HeaderLanguageList" name="locale_code" onchange="this.form.submit()" class="localization-select">
+            {% for language in localization.available_languages %}
+              <option value="{{ language.iso_code }}" {%- if language.iso_code == localization.language.iso_code %} selected{% endif %}>
+                {{ language.endonym_name | capitalize }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+    {% endform %}
+  </div>
+{% endif %}

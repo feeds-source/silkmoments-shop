@@ -1,68 +1,277 @@
 {% assign current = product.selected_or_first_available_variant %}
-<section class="wrap product">
+
+<section class="wrap product" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}">
   <div class="product__media">
     {% if product.featured_image %}
-      {{ product.featured_image | image_url: width: 1400 | image_tag: class: 'ken' }}
+      {{ product.featured_image | image_url: width: 1400 | image_tag: class: 'ken', loading: 'eager', alt: product.featured_image.alt | default: product.title }}
+    {% endif %}
+    {% assign pdp_video = product.media | where: 'media_type', 'video' | first %}
+    {% if pdp_video %}
+      {{ pdp_video | video_tag: image_size: '1400x', autoplay: true, loop: true, muted: true, controls: false, class: 'motion-video' }}
     {% endif %}
     {% if product.tags.size > 0 %}<span class="tag">{{ product.tags.first }}</span>{% endif %}
   </div>
-  <div>
-    <a class="gold" href="{{ product.collections.first.url | default: routes.all_products_collection_url }}">Back to {{ product.type | default: 'shop' }}</a>
-    <p class="kicker" style="margin-top:1.5rem">{{ product.type }}</p>
-    <h1>{{ product.title }}</h1>
-    <p class="price" style="font-size:1.25rem;font-weight:600;color:var(--accent);margin:0.75rem 0 0">{{ current.price | money }}</p>
-    <div class="muted" style="margin-top:1rem;max-width:28rem">{{ product.description }}</div>
 
-    {% form 'product', product %}
-      {% unless product.has_only_default_variant %}
-        <fieldset class="variants">
-          <legend class="kicker">Size</legend>
-          {% for variant in product.variants %}
-            <input
-              type="radio"
-              name="id"
-              id="v-{{ variant.id }}"
-              value="{{ variant.id }}"
-              data-inventory="{{ variant.inventory_quantity }}"
-              data-available="{{ variant.available }}"
-              {% if variant == current %}checked{% endif %}
-              {% unless variant.available %}disabled{% endunless %}
-            >
-            <label for="v-{{ variant.id }}">{{ variant.title }}</label>
-          {% endfor %}
-        </fieldset>
-        <p class="inv-note" data-inv-note>
-          {% if current.inventory_management and current.available %}
-            {{ current.inventory_quantity }} in the atelier
-          {% elsif current.available %}
-            In the atelier
-          {% else %}
-            Sold out
-          {% endif %}
-          · <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a>
-        </p>
-      {% else %}
-        <input type="hidden" name="id" value="{{ current.id }}">
-        <p class="inv-note">
-          {% if current.inventory_management and current.available %}{{ current.inventory_quantity }} in the atelier · {% endif %}
-          <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a>
-        </p>
-      {% endunless %}
-      <div class="qty">
-        <label class="kicker" for="qty">{{ 'products.quantity' | t }}</label><br>
-        <input id="qty" type="number" name="quantity" value="1" min="1" {% if current.inventory_management %}max="{{ current.inventory_quantity | at_least: 1 }}"{% endif %}>
-      </div>
-      <button class="btn" type="submit" style="margin-top:2rem" {% unless current.available %}disabled{% endunless %}>
-        {% if current.available %}{{ 'products.add' | t }}{% else %}{{ 'products.sold_out' | t }}{% endif %}
-      </button>
-    {% endform %}
-    <p class="muted" style="margin-top:0.75rem;font-size:0.8rem">{{ 'general.sizes' | t }} · {{ 'general.cod' | t }}</p>
+  <div class="product__info">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when '@app' %}
+          <div class="product-block product-block--app" {{ block.shopify_attributes }}>
+            {% render block %}
+          </div>
+
+        {% when 'breadcrumbs' %}
+          <div class="product-block" {{ block.shopify_attributes }}>
+            <a class="gold" href="{{ product.collections.first.url | default: routes.all_products_collection_url }}">
+              &larr; Back to {{ product.collections.first.title | default: 'Shop' }}
+            </a>
+          </div>
+
+        {% when 'title' %}
+          <div class="product-block" {{ block.shopify_attributes }}>
+            {% if product.type != blank %}
+              <p class="kicker" style="margin-top:0.75rem">{{ product.type }}</p>
+            {% endif %}
+            <h1 class="product__title">{{ product.title }}</h1>
+          </div>
+
+        {% when 'price' %}
+          <div class="product-block" {{ block.shopify_attributes }}>
+            <div class="product__price-wrap" style="display:flex;align-items:baseline;gap:0.75rem;margin:0.75rem 0 0">
+              <p class="price" style="font-size:1.35rem;font-weight:600;color:var(--accent);margin:0">
+                {{ current.price | money }}
+              </p>
+              {% if current.compare_at_price > current.price %}
+                <s class="muted" style="font-size:1rem">{{ current.compare_at_price | money }}</s>
+                <span class="tag tag--sale" style="background:var(--blush);color:#fff;font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:999px">Sale</span>
+              {% endif %}
+            </div>
+          </div>
+
+        {% when 'description' %}
+          <div class="product-block muted product__description" style="margin-top:1.25rem;max-width:32rem;line-height:1.6" {{ block.shopify_attributes }}>
+            {{ product.description }}
+          </div>
+
+        {% when 'variant_picker' %}
+          <div class="product-block" {{ block.shopify_attributes }}>
+            {% form 'product', product, id: 'product-form-main', data-ajax: true %}
+              {% unless product.has_only_default_variant %}
+                <fieldset class="variants">
+                  <legend class="kicker">{{ block.settings.size_label | default: 'Size' }}</legend>
+                  {% for variant in product.variants %}
+                    <input
+                      type="radio"
+                      name="id"
+                      id="v-{{ variant.id }}"
+                      value="{{ variant.id }}"
+                      data-inventory="{{ variant.inventory_quantity }}"
+                      data-available="{{ variant.available }}"
+                      data-price="{{ variant.price | money }}"
+                      {% if variant == current %}checked{% endif %}
+                      {% unless variant.available %}disabled{% endunless %}
+                    >
+                    <label for="v-{{ variant.id }}">{{ variant.title }}</label>
+                  {% endfor %}
+                </fieldset>
+
+                <p class="inv-note" data-inv-note>
+                  {% if current.inventory_management and current.available %}
+                    {{ current.inventory_quantity }} in the atelier
+                  {% elsif current.available %}
+                    In the atelier
+                  {% else %}
+                    Sold out
+                  {% endif %}
+                  {% if block.settings.show_size_guide %}
+                    · <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a>
+                  {% endif %}
+                </p>
+              {% else %}
+                <input type="hidden" name="id" value="{{ current.id }}">
+                <p class="inv-note">
+                  {% if current.inventory_management and current.available %}{{ current.inventory_quantity }} in the atelier · {% endif %}
+                  {% if block.settings.show_size_guide %}
+                    <a class="gold" href="{{ pages['size-guide'].url | default: '/pages/size-guide' }}">Size guide</a>
+                  {% endif %}
+                </p>
+              {% endunless %}
+            {% endform %}
+          </div>
+
+        {% when 'quantity_selector' %}
+          <div class="product-block qty" style="margin-top:1.25rem" {{ block.shopify_attributes }}>
+            <label class="kicker" for="qty">{{ 'products.quantity' | t | default: 'Quantity' }}</label><br>
+            <input id="qty" form="product-form-main" type="number" name="quantity" value="1" min="1" {% if current.inventory_management %}max="{{ current.inventory_quantity | at_least: 1 }}"{% endif %} style="margin-top:0.4rem">
+          </div>
+
+        {% when 'buy_buttons' %}
+          <div class="product-block" style="margin-top:1.75rem" {{ block.shopify_attributes }}>
+            {% form 'product', product, id: 'product-buy-form' %}
+              <input type="hidden" name="id" value="{{ current.id }}">
+              <button class="btn btn--full" form="product-form-main" type="submit" {% unless current.available %}disabled{% endunless %}>
+                {% if current.available %}
+                  {{ 'products.add' | t | default: 'Add to Bag' }}
+                {% else %}
+                  {{ 'products.sold_out' | t | default: 'Sold Out' }}
+                {% endif %}
+              </button>
+              {% if block.settings.show_dynamic_checkout and current.available %}
+                <div style="margin-top:0.75rem">
+                  {{ form | payment_button }}
+                </div>
+              {% endif %}
+            {% endform %}
+            {% if block.settings.show_trust_note %}
+              <p class="muted" style="margin-top:0.75rem;font-size:0.8rem">
+                {{ 'general.sizes' | t | default: 'Complimentary size exchange' }} · {{ 'general.cod' | t | default: 'Cash on delivery worldwide' }}
+              </p>
+            {% endif %}
+          </div>
+
+        {% when 'collapsible_tab' %}
+          <div class="product-block accordion" style="margin-top:1.25rem;border-top:1px solid var(--line);padding-top:0.75rem" {{ block.shopify_attributes }}>
+            <details style="cursor:pointer">
+              <summary style="font-weight:600;display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;color:var(--fg);list-style:none">
+                <span>{{ block.settings.heading }}</span>
+                <span class="gold" style="font-size:1.1rem">+</span>
+              </summary>
+              <div class="muted" style="padding:0.75rem 0 0.5rem;font-size:0.9rem;line-height:1.6">
+                {{ block.settings.content }}
+                {{ block.settings.page.content }}
+              </div>
+            </details>
+          </div>
+
+        {% when 'custom_liquid' %}
+          <div class="product-block" {{ block.shopify_attributes }}>
+            {{ block.settings.custom_liquid }}
+          </div>
+
+        {% when 'share' %}
+          <div class="product-block" style="margin-top:1.5rem;display:flex;align-items:center;gap:0.75rem" {{ block.shopify_attributes }}>
+            <span class="kicker">Share:</span>
+            <a class="subtle" target="_blank" rel="noopener noreferrer" href="https://pinterest.com/pin/create/button/?url={{ shop.url | append: product.url }}&media={{ product.featured_image | image_url: width: 1000 }}&description={{ product.title | url_param_escape }}">Pinterest</a>
+            <a class="subtle" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url | append: product.url }}">Facebook</a>
+            <a class="subtle" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?text={{ product.title | url_param_escape }}&url={{ shop.url | append: product.url }}">X / Twitter</a>
+          </div>
+
+      {% endcase %}
+    {% endfor %}
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Product",
-  "settings": []
+  "name": "Product information",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "breadcrumbs",
+      "name": "Breadcrumb link",
+      "limit": 1
+    },
+    {
+      "type": "title",
+      "name": "Title & Type",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "size_label",
+          "label": "Option label",
+          "default": "Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_size_guide",
+          "label": "Show size guide link",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity selector",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Show dynamic checkout buttons",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_trust_note",
+          "label": "Show atelier guarantee note",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Atelier Silk Care & Materials"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Tab content",
+          "default": "<p>100% 19mm Mulberry Silk with French Leavers lace accents. Hand wash cold with delicate silk detergent or dry clean only.</p>"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Tab content from page"
+        }
+      ]
+    },
+    {
+      "type": "share",
+      "name": "Share",
+      "limit": 1
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

@@ -1,14 +1,34 @@
 <footer class="site-footer">
-  <img src="{{ 'lounge.jpg' | asset_url }}" alt="" width="1600" height="1000">
+  <img src="{{ 'lounge.jpg' | asset_url }}" alt="" width="1600" height="1000" loading="lazy">
   <div class="footer-veil"></div>
   <div class="wrap site-footer__inner">
     <div class="grid-footer">
       <div class="brand-lockup">
-        <p class="brand__name">{{ settings.brand_name }}</p>
-        <p class="brand__sub">{{ settings.brand_sub }}</p>
-        <h2>{{ settings.brand_line }}</h2>
-        <p class="muted" style="margin-top:1rem;max-width:22rem">Jewel-tone lingerie, night, and lounge. Cash on delivery worldwide. A printable receipt at every order.</p>
+        <p class="brand__name">{{ settings.brand_name | default: 'FEMME' }}</p>
+        <p class="brand__sub">{{ settings.brand_sub | default: 'Silk Atelier' }}</p>
+        <h2>{{ settings.brand_line | default: 'Exotic silk, cut for the body.' }}</h2>
+        <p class="muted" style="margin-top:1rem;max-width:22rem">
+          Jewel-tone lingerie, night, and lounge. Cash on delivery worldwide. A printable receipt at every order.
+        </p>
+
+        {% if settings.social_instagram_link != blank or settings.social_pinterest_link != blank or settings.social_tiktok_link != blank or settings.social_facebook_link != blank %}
+          <div class="footer-socials" style="display:flex;gap:1rem;margin-top:1.5rem">
+            {% if settings.social_instagram_link != blank %}
+              <a class="subtle" href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener noreferrer">Instagram</a>
+            {% endif %}
+            {% if settings.social_pinterest_link != blank %}
+              <a class="subtle" href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener noreferrer">Pinterest</a>
+            {% endif %}
+            {% if settings.social_tiktok_link != blank %}
+              <a class="subtle" href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener noreferrer">TikTok</a>
+            {% endif %}
+            {% if settings.social_facebook_link != blank %}
+              <a class="subtle" href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
+
       <div class="grid-footer-nav">
         <div>
           <h3>Night</h3>
@@ -54,14 +74,28 @@
             <li><a href="{{ routes.all_products_collection_url }}">Shop all</a></li>
           </ul>
           <p class="subtle" style="margin-top:1.5rem;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase">Write</p>
-          <a class="gold" href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>
+          <a class="gold" href="mailto:{{ settings.contact_email }}">{{ settings.contact_email | default: 'info@silkmoments.com' }}</a>
         </div>
       </div>
     </div>
+
     <div class="gold-rule" style="margin-top:3.5rem"></div>
-    <div class="legal">
-      <p>{{ 'general.cod' | t }} · {{ 'general.sizes' | t }}</p>
-      <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · Adult atelier</p>
+
+    <div class="legal" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem">
+      <div>
+        <p>{{ 'general.cod' | t | default: 'Cash on delivery worldwide' }} · {{ 'general.sizes' | t | default: 'Size guide support' }}</p>
+        <p>© {{ 'now' | date: '%Y' }} {{ shop.name }} · Silk Atelier</p>
+      </div>
+
+      {% render 'localization-selector' %}
+
+      {% if settings.show_payment_icons and shop.enabled_payment_types.size > 0 %}
+        <div class="footer-payment-icons" style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          {% for type in shop.enabled_payment_types %}
+            {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
 </footer>

@@ -1,0 +1,39 @@
+{% comment %}
+  House catalog from theme assets so GitHub / zip preview matches the live
+  atelier even before Shopify products are imported.
+  mode: featured | all | a collection handle (bras, babydoll, …)
+{% endcomment %}
+{% assign demo_mode = mode | default: 'all' %}
+{% assign demo_limit = max_items | default: 36 %}
+{% assign shown = 0 %}
+{% assign pieces = "everyday-soft-bra|Everyday Soft Cup Bra|Bras|$42|Best seller|bra,ultimate-tshirt-bra|Ultimate T-Shirt Bra|Bras|$48|New|bra,first-fit-teen-bra|First Fit Bralette|Bras|$28||bra,lace-balconette-set|Lace Balconette Set|Bra Sets|$78|Set|bra,daily-hipster|Daily Hipster Brief|Panties|$16||alpha,seamless-thong|Seamless Soft Thong|Panties|$14||alpha,ruby-brazilian|Ruby Silk Brazilian|Panties|$22||alpha,lace-camisole|Champagne Lace Camisole|Camisole|$36||alpha,ruby-babydoll|Ruby Lace Babydoll|Babydoll|$88|Babydoll|nighty,satin-night-set|Satin Night Cami Set|Short Nighty|$64|Night|nighty,short-lace-nighty|Noir Short Lace Nighty|Short Nighty|$72||nighty,silk-night-slip|Champagne Night Slip|Long Nighty|$86||nighty,satin-gown|Black Satin Gown|Gowns|$96||gown,noir-teddy|Noir Lace Teddy|Teddies|$98|Teddy|alpha,emerald-teddy|Emerald Silk Teddy|Teddies|$108||alpha,mesh-bodysuit|Mesh Contour Bodysuit|Teddies|$88|Exotic|alpha,ivory-bridal-set|Ivory Pearl Bridal Set|Bridal|$148|Bridal|bra,getting-ready-robe|Pearl Getting-Ready Robe|Bridal|$118||nighty,emerald-bustier|Emerald Silk Bustier|Corsetry|$128|Corset|alpha,ruby-waspie|Ruby Lace Waspie|Corsetry|$96||alpha,seamed-stockings|Champagne Seamed Stockings|Hosiery|$32||alpha,lace-holdups|Noir Lace Hold-Ups|Hosiery|$28||alpha,lace-garter|Noir Lace Garter|Hosiery|$48||alpha,body-stocking|Noir Lace Body Stocking|Body Stockings|$42||free,high-waist-shaper|High-Waist Soft Shaper|Shapewear|$54||alpha,slip-short|Everyday Slip Short|Shapewear|$36||alpha,sculpt-midi|Sculpt Midi Slip|Shapewear|$62||alpha,silk-bikini|Ruby Silk Bikini|Swim|$58||alpha,cloud-robe|Cloud Knit Robe|Loungewear|$72|Lounge|alpha,lounge-wide-pant|Wide-Leg Lounge Pant|Loungewear|$58||alpha,silk-kaftan|Jewel Silk Kaftan|Resort|$132||alpha,orchid-sarong|Orchid Silk Sarong|Resort|$64||free,thermal-set|Soft Thermal Set|Thermal|$68||alpha,plum-wrap|Plum Cashmere Wrap|Thermal|$94||alpha,silk-eye-mask|Champagne Silk Mask|Accessories|$24||free,gold-body-chain|Gold Body Chain|Accessories|$54||free" | split: ',' %}
+{% for row in pieces %}
+  {% assign p = row | split: '|' %}
+  {% assign handle = p[0] %}
+  {% assign title = p[1] %}
+  {% assign cat = p[2] %}
+  {% assign price = p[3] %}
+  {% assign tag = p[4] %}
+  {% assign chart = p[5] %}
+  {% assign cat_handle = cat | handleize %}
+  {% assign include = false %}
+  {% if demo_mode == 'all' or demo_mode == 'shop' %}
+    {% assign include = true %}
+  {% elsif demo_mode == 'featured' %}
+    {% if tag != blank %}{% assign include = true %}{% endif %}
+  {% elsif demo_mode == cat_handle %}
+    {% assign include = true %}
+  {% endif %}
+  {% if include %}
+    {% assign video = '' %}
+    {% if handle == 'everyday-soft-bra' or handle == 'ultimate-tshirt-bra' or handle == 'lace-balconette-set' or handle == 'ruby-babydoll' or handle == 'satin-night-set' or handle == 'noir-teddy' or handle == 'mesh-bodysuit' or handle == 'ivory-bridal-set' or handle == 'emerald-bustier' %}
+      {% assign video = handle | append: '.mp4' %}
+    {% endif %}
+    {% assign wide = false %}
+    {% if tag == 'Best seller' or tag == 'Exotic' %}{% assign wide = true %}{% endif %}
+    {% assign image_file = handle | append: '.jpg' %}
+    {% render 'demo-card', image: image_file, video: video, title: title, cat: cat, price: price, tag: tag, wide: wide, chart: chart %}
+    {% assign shown = shown | plus: 1 %}
+    {% if shown >= demo_limit %}{% break %}{% endif %}
+  {% endif %}
+{% endfor %}

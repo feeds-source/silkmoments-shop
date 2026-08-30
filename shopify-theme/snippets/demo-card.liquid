@@ -18,6 +18,24 @@
     <p class="price">{{ price }}</p>
   </a>
   <div class="card-actions">
-    <a class="btn" href="{{ routes.all_products_collection_url }}">{{ 'products.add' | t }}</a>
+    <label class="kicker">Size</label>
+    <select class="size-select" aria-label="Size for {{ title | escape }}">
+      {% if chart == 'bra' %}
+        <option>30B</option><option>32A</option><option selected>32B</option><option>32C</option><option>32D</option>
+        <option>34A</option><option>34B</option><option>34C</option><option>34D</option>
+        <option>36B</option><option>36C</option><option>36D</option>
+        <option>38B</option><option>38C</option><option>38D</option>
+        <option>40B</option><option>40C</option><option>42B</option><option>42C</option>
+      {% elsif chart == 'nighty' %}
+        <option>Free Size</option><option>S</option><option selected>M</option><option>L</option><option>XL</option>
+      {% elsif chart == 'gown' %}
+        <option selected>M</option><option>L</option><option>XL</option><option>XXL</option>
+      {% elsif chart == 'free' %}
+        <option selected>Free Size</option>
+      {% else %}
+        <option>XS</option><option>S</option><option selected>M</option><option>L</option><option>XL</option><option>XXL</option>
+      {% endif %}
+    </select>
+    <a class="btn" href="{{ routes.all_products_collection_url }}" style="margin-top:0.5rem">{{ 'products.add' | t }}</a>
   </div>
 </article>

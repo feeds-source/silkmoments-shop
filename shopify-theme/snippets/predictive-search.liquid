@@ -1,0 +1,41 @@
+<div id="predictive-search-modal" class="search-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Search the atelier">
+  <div class="search-modal__overlay" data-search-close></div>
+  <div class="search-modal__content">
+    <div class="wrap">
+      <div class="search-modal__header">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search-form" id="predictive-search-form">
+          <label for="Search-In-Modal" class="visually-hidden">Search products and collections</label>
+          <div class="search-input-wrap">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input
+              id="Search-In-Modal"
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="Search silk gowns, babydolls, bras, sizes..."
+              role="combobox"
+              aria-expanded="false"
+              aria-owns="predictive-search-results"
+              aria-controls="predictive-search-results"
+              aria-haspopup="listbox"
+              aria-autocomplete="list"
+              autocorrect="off"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+              class="search-input"
+            >
+            <button type="reset" class="search-reset" aria-label="Clear search">✕</button>
+          </div>
+          <input type="hidden" name="options[prefix]" value="last">
+        </form>
+        <button type="button" class="search-close-btn" data-search-close aria-label="Close search">Close ✕</button>
+      </div>
+
+      <div id="predictive-search-results" class="predictive-search-results" tabindex="-1">
+        <div class="search-loading-indicator" hidden>Searching the atelier...</div>
+        <div class="predictive-results-container"></div>
+      </div>
+    </div>
+  </div>
+</div>

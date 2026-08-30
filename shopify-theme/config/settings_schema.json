@@ -2,28 +2,219 @@
   {
     "name": "theme_info",
     "theme_name": "Femme Silk Atelier",
-    "theme_version": "1.3.0",
+    "theme_version": "2.1.0",
     "theme_author": "Silk Moments",
-    "theme_documentation_url": "https://www.silkmoments.com",
-    "theme_support_url": "https://www.silkmoments.com"
+    "theme_documentation_url": "https://www.silkmoments.com/docs",
+    "theme_support_url": "https://www.silkmoments.com/support"
   },
   {
-    "name": "Brand",
+    "name": "Brand & Header",
     "settings": [
-      { "type": "text", "id": "brand_name", "label": "Wordmark", "default": "FEMME" },
-      { "type": "text", "id": "brand_sub", "label": "Subtitle", "default": "Silk Atelier" },
-      { "type": "textarea", "id": "brand_line", "label": "Footer line", "default": "Exotic silk, cut for the body." },
-      { "type": "text", "id": "contact_email", "label": "Email", "default": "info@silkmoments.com" },
-      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Brand Wordmark",
+        "default": "FEMME"
+      },
+      {
+        "type": "text",
+        "id": "brand_sub",
+        "label": "Brand Subtitle",
+        "default": "Silk Atelier"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 140
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "header",
+        "content": "Announcement Bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show announcement bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement text",
+        "default": "Complimentary atelier packaging on all orders · Cash on delivery available worldwide"
+      },
+      {
+        "type": "url",
+        "id": "announcement_link",
+        "label": "Announcement link"
+      }
     ]
   },
   {
     "name": "Colors",
     "settings": [
-      { "type": "color", "id": "color_bg", "label": "Background", "default": "#0c0a0b" },
-      { "type": "color", "id": "color_fg", "label": "Text", "default": "#f4efe6" },
-      { "type": "color", "id": "color_accent", "label": "Champagne gold", "default": "#d4b06a" },
-      { "type": "color", "id": "color_blush", "label": "Blush", "default": "#c45b7a" }
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Background",
+        "default": "#0c0a0b"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Surface / Card Background",
+        "default": "#161114"
+      },
+      {
+        "type": "color",
+        "id": "color_elevated",
+        "label": "Elevated Background",
+        "default": "#1e171a"
+      },
+      {
+        "type": "color",
+        "id": "color_fg",
+        "label": "Primary Text",
+        "default": "#f4efe6"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted Text",
+        "default": "#b7a792"
+      },
+      {
+        "type": "color",
+        "id": "color_subtle",
+        "label": "Subtle Text / Borders",
+        "default": "#8a7a6c"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent / Gold",
+        "default": "#d4b06a"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_fg",
+        "label": "Accent Text (on buttons)",
+        "default": "#1a1210"
+      },
+      {
+        "type": "color",
+        "id": "color_blush",
+        "label": "Blush / Secondary Accent",
+        "default": "#c45b7a"
+      },
+      {
+        "type": "color",
+        "id": "color_line",
+        "label": "Divider Lines",
+        "default": "#3a2d32"
+      }
+    ]
+  },
+  {
+    "name": "Cart & Drawer",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          { "value": "drawer", "label": "Slide-out Drawer" },
+          { "value": "page", "label": "Dedicated Page" }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cart_notes",
+        "label": "Enable order notes",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping goal amount (0 to disable)",
+        "default": 150
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest URL"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook URL"
+      }
+    ]
+  },
+  {
+    "name": "Footer & Legal",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "brand_line",
+        "label": "Footer statement",
+        "default": "Exotic silk, cut for the body."
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact email",
+        "default": "info@silkmoments.com"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_currency_selector",
+        "label": "Enable country/currency selector",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_language_selector",
+        "label": "Enable language selector",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment method icons",
+        "default": true
+      }
     ]
   }
 ]

@@ -1,6 +1,81 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "main": { "type": "main-product", "settings": {} }
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "breadcrumbs": {
+          "type": "breadcrumbs",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_label": "Size",
+            "show_size_guide": true
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_trust_note": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "care_tab": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Atelier Silk Care & Materials",
+            "content": "<p>100% 19mm Mulberry Silk with French Leavers lace accents. Hand wash cold with delicate silk detergent or dry clean only.</p>"
+          }
+        },
+        "shipping_tab": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping, Returns & Cash on Delivery",
+            "content": "<p>Complimentary discreet luxury packaging with all atelier orders. Free size exchanges within 14 days of delivery.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumbs",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "care_tab",
+        "shipping_tab"
+      ],
+      "settings": {}
+    }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
