@@ -50,10 +50,10 @@ export function CampaignBanners() {
           <h2 className="mt-2 font-display text-4xl italic text-fg md:text-5xl">{current.title}</h2>
           <Link
             to="/shop"
-            search={{ cat: current.cat }}
+            search={{ room: current.room }}
             className="mt-6 inline-flex h-12 w-fit items-center rounded-full bg-accent px-6 text-xs font-semibold uppercase tracking-widest text-accent-fg transition-transform duration-150 ease-out active:scale-[0.96]"
           >
-            Shop {current.cat}
+            Shop {current.kicker}
           </Link>
         </div>
       </div>

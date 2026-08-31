@@ -27,12 +27,20 @@ export function CinematicHero() {
           {HERO.title}
         </h1>
         <p className="stagger-item mt-4 max-w-md text-muted">{HERO.body}</p>
-        <Link
-          to="/shop"
-          className="stagger-item mt-8 inline-flex h-12 w-fit items-center rounded-full bg-accent px-6 text-xs font-semibold uppercase tracking-widest text-accent-fg transition-transform duration-150 ease-out active:scale-[0.96]"
-        >
-          Shop the house
-        </Link>
+        <div className="stagger-item mt-8 flex flex-wrap gap-3">
+          <Link
+            to="/shop"
+            className="inline-flex h-12 w-fit items-center rounded-full bg-accent px-6 text-xs font-semibold uppercase tracking-widest text-accent-fg transition-transform duration-150 ease-out active:scale-[0.96]"
+          >
+            Shop the house
+          </Link>
+          <Link
+            to="/size-guide"
+            className="inline-flex h-12 w-fit items-center rounded-full border border-line px-6 text-xs font-semibold uppercase tracking-widest text-accent transition-transform duration-150 ease-out active:scale-[0.96]"
+          >
+            Fit studio & sizing
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -7,7 +7,7 @@ import { PredictiveSearch } from "@/components/predictive-search";
 import { isAdminEmail } from "@/lib/admin";
 import { hydrateCart, useCart } from "@/lib/cart-store";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
-import { FOOTER_AISLES } from "@/lib/footer";
+import { FOOTER_AISLES, type Room } from "@/lib/footer";
 import { useStock } from "@/lib/inventory";
 
 export function StoreShell({ children }: { children: React.ReactNode }) {
@@ -17,6 +17,10 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
   const lines = useCart((s) => s.lines);
   const count = hydrateCart(lines).reduce((n, l) => n + l.qty, 0);
   const path = useRouterState({ select: (s) => s.location.pathname });
+  const search = useRouterState({ select: (s) => s.location.search as Record<string, unknown> | string });
+  const roomOn = typeof search === "string"
+    ? new URLSearchParams(search.startsWith("?") ? search.slice(1) : search).get("room") || ""
+    : typeof search?.room === "string" ? search.room : "";
   const admin = isAdminEmail(user?.primaryEmail);
   const loadStock = useStock((s) => s.load);
 
@@ -35,7 +39,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-dvh bg-bg text-fg">
       <InstallBanner />
       <div className="border-b border-line bg-surface px-3 py-2 text-center text-2xs font-medium uppercase tracking-[0.12em] text-accent sm:px-4">
-        Complimentary atelier packaging on all orders · Worldwide delivery
+        Complimentary discreet packaging · Cash on delivery worldwide · Free size exchanges within 14 days
       </div>
       <header className="sticky top-0 z-30 border-b border-accent/20 bg-bg/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 min-w-0 max-w-6xl items-center justify-between gap-2 px-3 sm:px-4">
@@ -43,11 +47,13 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
             <span className="font-display text-lg italic tracking-[0.18em] text-accent sm:text-xl sm:tracking-[0.32em]">FEMME</span>
             <span className="mt-1 hidden text-2xs uppercase tracking-[0.28em] text-muted min-[380px]:block">Silk Atelier</span>
           </Link>
-          <nav className="hidden min-w-0 items-center gap-1 md:flex">
-            <NavLink to="/" label="Home" active={path === "/"} />
-            <NavLink to="/shop" label="Shop" active={path.startsWith("/shop")} />
-            <NavLink to="/size-guide" label="Sizes" active={path === "/size-guide" || path === "/sizes"} />
-            <NavLink to="/atelier" label="Atelier" active={path === "/atelier" || path === "/about"} />
+          <nav className="hidden min-w-0 items-center gap-1 lg:flex">
+            <NavLink to="/shop" label="Shop" active={path.startsWith("/shop") && !roomOn} />
+            <RoomLink label="Sleep" room="Sleep" active={roomOn === "Sleep"} />
+            <RoomLink label="Lingerie" room="Lingerie" active={roomOn === "Lingerie"} />
+            <RoomLink label="Lounge" room="Lounge" active={roomOn === "Lounge"} />
+            <NavLink to="/atelier" label="The Atelier" active={path === "/atelier" || path === "/about"} />
+            <NavLink to="/size-guide" label="Size Guide" active={path === "/size-guide" || path === "/sizes"} />
             <NavLink to="/contact" label="Contact" active={path === "/contact"} />
           </nav>
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
@@ -91,7 +97,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
             </Link>
             <button
               type="button"
-              className="grid h-11 w-11 shrink-0 place-items-center md:hidden"
+              className="grid h-11 w-11 shrink-0 place-items-center lg:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label="Menu"
             >
@@ -100,12 +106,14 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         {open && (
-          <div className="border-t border-accent/20 bg-surface px-4 py-5 md:hidden">
+          <div className="border-t border-accent/20 bg-surface px-4 py-5 lg:hidden">
             <div className="flex flex-col gap-1">
-              <NavLink to="/" label="Home" active={path === "/"} onClick={() => setOpen(false)} />
-              <NavLink to="/shop" label="Shop" active={path.startsWith("/shop")} onClick={() => setOpen(false)} />
-              <NavLink to="/size-guide" label="Sizes" active={path === "/size-guide" || path === "/sizes"} onClick={() => setOpen(false)} />
-              <NavLink to="/atelier" label="Atelier" active={path === "/atelier" || path === "/about"} onClick={() => setOpen(false)} />
+              <NavLink to="/shop" label="Shop" active={path.startsWith("/shop") && !roomOn} onClick={() => setOpen(false)} />
+              <RoomLink label="Sleep" room="Sleep" active={roomOn === "Sleep"} onClick={() => setOpen(false)} />
+              <RoomLink label="Lingerie" room="Lingerie" active={roomOn === "Lingerie"} onClick={() => setOpen(false)} />
+              <RoomLink label="Lounge" room="Lounge" active={roomOn === "Lounge"} onClick={() => setOpen(false)} />
+              <NavLink to="/atelier" label="The Atelier" active={path === "/atelier" || path === "/about"} onClick={() => setOpen(false)} />
+              <NavLink to="/size-guide" label="Size Guide" active={path === "/size-guide" || path === "/sizes"} onClick={() => setOpen(false)} />
               <NavLink to="/contact" label="Contact" active={path === "/contact"} onClick={() => setOpen(false)} />
               <button
                 type="button"
@@ -156,6 +164,31 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
         <TabLink to={user ? "/account" : "/login"} label="Account" active={path === "/account" || path === "/login"} />
       </nav>
     </div>
+  );
+}
+
+function RoomLink({
+  label,
+  room,
+  active,
+  onClick,
+}: {
+  label: string;
+  room: Room;
+  active: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <Link
+      to="/shop"
+      search={{ room }}
+      onClick={onClick}
+      className={`inline-flex h-11 items-center px-3 text-xs uppercase tracking-[0.2em] transition-colors duration-150 ${
+        active ? "text-accent" : "text-muted hover:text-accent"
+      }`}
+    >
+      {label}
+    </Link>
   );
 }
 

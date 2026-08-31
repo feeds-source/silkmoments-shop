@@ -1,15 +1,21 @@
 import { Outlet, createFileRoute, Link, useRouterState } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
 import { ProductCard } from "@/components/product-card";
-import { AISLES } from "@/lib/banners";
+import { AISLES, CAMPAIGNS } from "@/lib/banners";
 import { CATEGORIES, PRODUCTS, type Category } from "@/lib/catalog";
+import { ROOMS, type Room } from "@/lib/footer";
 import { CAT_HERO } from "@/lib/house";
 
-type ShopSearch = { cat?: string };
+type ShopSearch = { cat?: string; room?: string };
+
+function isRoom(value: string | undefined): value is Room {
+  return Boolean(value && value in ROOMS);
+}
 
 export const Route = createFileRoute("/shop")({
   validateSearch: (search: Record<string, unknown>): ShopSearch => ({
     cat: typeof search.cat === "string" ? search.cat : undefined,
+    room: typeof search.room === "string" ? search.room : undefined,
   }),
   component: Shop,
 });
@@ -20,14 +26,24 @@ function Shop() {
   });
   if (isPiece) return <Outlet />;
 
-  const { cat } = Route.useSearch();
+  const { cat, room: roomParam } = Route.useSearch();
   const current = CATEGORIES.includes(cat as (typeof CATEGORIES)[number])
     ? (cat as (typeof CATEGORIES)[number])
     : "All";
+  const room = current === "All" && isRoom(roomParam) ? roomParam : undefined;
   const list =
-    current === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category === (current as Category));
-  const hero = CAT_HERO[current];
-  const title = current === "All" ? "Shop the house" : current;
+    current !== "All"
+      ? PRODUCTS.filter((p) => p.category === (current as Category))
+      : room
+        ? PRODUCTS.filter((p) => ROOMS[room].includes(p.category))
+        : PRODUCTS;
+  const campaign = room ? CAMPAIGNS.find((c) => c.room === room) : null;
+  const hero = current !== "All"
+    ? CAT_HERO[current]
+    : campaign
+      ? { image: campaign.poster, video: campaign.video ?? undefined, kicker: campaign.kicker, body: campaign.title }
+      : CAT_HERO.All;
+  const title = current !== "All" ? current : room || "Shop the house";
 
   return (
     <main>
@@ -39,16 +55,16 @@ function Shop() {
         body={hero.body}
       />
 
-      {current === "All" ? (
+      {current === "All" && !room ? (
         <section className="mx-auto max-w-6xl px-4 py-12">
-          <p className="text-xs uppercase tracking-[0.28em] text-accent">Aisles</p>
+          <p className="text-xs uppercase tracking-[0.28em] text-accent">The House</p>
           <h2 className="mt-2 font-display text-3xl italic text-fg md:text-4xl">Walk the house</h2>
           <div className="mt-8 grid-aisles">
             {AISLES.map((a) => (
               <Link
                 key={a.cat}
                 to="/shop"
-                search={{ cat: a.cat }}
+                search={{ room: a.room }}
                 className="group relative overflow-hidden rounded-xl border border-line"
               >
                 <img src={a.image} alt="" className="ken-hover absolute inset-0 h-full w-full object-cover" />
@@ -86,7 +102,7 @@ function Shop() {
         <div className="flex flex-wrap items-end justify-between gap-3">
           <p className="text-sm text-muted">
             {list.length} {list.length === 1 ? "piece" : "pieces"}
-            {current !== "All" ? ` in ${current}` : " in the atelier"}
+            {current !== "All" ? ` in ${current}` : room ? ` in ${room}` : " in the atelier"}
           </p>
           <Link to="/size-guide" className="text-sm text-accent">
             Size charts
