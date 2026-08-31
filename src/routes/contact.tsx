@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/contact")({ component: Contact });
+export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      { title: "Contact | Femme — Silk Moments" },
+      { name: "description", content: "Write to the Femme atelier. Orders, fit, and house notes — info@silkmoments.com." },
+      { name: "keywords", content: "contact silk moments, femme atelier email, silk lingerie support" },
+    ],
+  }),
+  component: Contact,
+});
 
 function Contact() {
   return (

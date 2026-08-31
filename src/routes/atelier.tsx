@@ -2,7 +2,16 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
 import { ATELIER_CRAFT, ATELIER_LOOK, ATELIER_ROOMS } from "@/lib/house";
 
-export const Route = createFileRoute("/atelier")({ component: Atelier });
+export const Route = createFileRoute("/atelier")({
+  head: () => ({
+    meta: [
+      { title: "The Atelier | Femme — Silk Moments" },
+      { name: "description", content: "The Femme atelier — exotic silk, cut for the body. Emerald, champagne, and ruby lingerie, night, and lounge." },
+      { name: "keywords", content: "silk atelier, femme silk moments, jewel silk, exotic silk lingerie, house of silk" },
+    ],
+  }),
+  component: Atelier,
+});
 
 function Atelier() {
   return (

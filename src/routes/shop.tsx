@@ -5,6 +5,7 @@ import { AISLES, CAMPAIGNS } from "@/lib/banners";
 import { CATEGORIES, PRODUCTS, type Category } from "@/lib/catalog";
 import { ROOMS, type Room } from "@/lib/footer";
 import { CAT_HERO } from "@/lib/house";
+import { shopDescription, shopTitle } from "@/lib/seo";
 
 type ShopSearch = { cat?: string; room?: string };
 
@@ -17,6 +18,17 @@ export const Route = createFileRoute("/shop")({
     cat: typeof search.cat === "string" ? search.cat : undefined,
     room: typeof search.room === "string" ? search.room : undefined,
   }),
+  head: ({ match }) => {
+    const search = match.search as ShopSearch;
+    const aisle = search.cat || search.room || "All";
+    return {
+      meta: [
+        { title: shopTitle(aisle) },
+        { name: "description", content: shopDescription(aisle) },
+        { name: "keywords", content: `${aisle}, silk lingerie, Femme Silk Moments, cash on delivery lingerie` },
+      ],
+    };
+  },
   component: Shop,
 });
 

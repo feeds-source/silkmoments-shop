@@ -15,7 +15,8 @@ export const Route = createRootRoute({
       { name: "theme-color", content: "#0c0a0b" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "description", content: "Femme by Silk Moments — exotic jewel-tone lingerie, night and lounge. Cash on delivery worldwide." },
+      { name: "description", content: "Femme by Silk Moments — jewel-tone silk lingerie, lace babydolls, teddies, bridal robes, and lounge. Cash on delivery worldwide with discreet packaging." },
+      { name: "keywords", content: "silk lingerie, jewel tone lingerie, silk babydoll, lace teddy, silk nightgown, bridal lingerie, silk robe, wireless bra, t-shirt bra, lace bralette, cash on delivery lingerie, Femme Silk Moments, exotic silk" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

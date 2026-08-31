@@ -36,7 +36,16 @@ import {
   type FitUnit,
 } from "@/lib/size-guide";
 
-export const Route = createFileRoute("/size-guide")({ component: SizeGuide });
+export const Route = createFileRoute("/size-guide")({
+  head: () => ({
+    meta: [
+      { title: "Size charts | Femme — Silk Moments" },
+      { name: "description", content: "Bra, nighty, gown, and corset size charts. Find 30B–42C and XS–XXL with sister sizes, cup maps, and tape guides." },
+      { name: "keywords", content: "lingerie size chart, bra size guide, 30B 32B 34C, sister size, nighty size chart, corset sizing" },
+    ],
+  }),
+  component: SizeGuide,
+});
 
 function ChartTable({
   columns,

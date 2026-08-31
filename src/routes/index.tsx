@@ -2,17 +2,29 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CampaignBanners } from "@/components/campaign-banners";
 import { CinematicHero } from "@/components/cinematic-hero";
 import { ProductCard } from "@/components/product-card";
+import { SeoJsonLd } from "@/components/seo-json-ld";
 import { SilkMarquee } from "@/components/silk-marquee";
 import { AISLES, SPLIT, STORY, TRUST } from "@/lib/banners";
 import { PRODUCTS } from "@/lib/catalog";
+import { HOUSE_DESCRIPTION, HOUSE_KEYWORDS, HOUSE_TITLE, houseJsonLd } from "@/lib/seo";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: HOUSE_TITLE },
+      { name: "description", content: HOUSE_DESCRIPTION },
+      { name: "keywords", content: HOUSE_KEYWORDS },
+    ],
+  }),
+  component: Home,
+});
 
 function Home() {
   const featured = PRODUCTS.filter((p) => p.tag).slice(0, 6);
 
   return (
     <main>
+      <SeoJsonLd data={houseJsonLd()} />
       <CinematicHero />
 
       <section className="mx-auto max-w-6xl px-4 py-14">

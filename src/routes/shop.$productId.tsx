@@ -1,13 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ProductMedia } from "@/components/product-media";
+import { SeoJsonLd } from "@/components/seo-json-ld";
 import { SizePicker } from "@/components/size-picker";
 import { PRODUCTS_BY_ID, sizesFor } from "@/lib/catalog";
 import { qtyInBag, useCart } from "@/lib/cart-store";
 import { firstInStockSize, useStock } from "@/lib/inventory";
 import { money } from "@/lib/quote";
+import { productHead, productJsonLd } from "@/lib/seo";
 
-export const Route = createFileRoute("/shop/$productId")({ component: ProductPage });
+export const Route = createFileRoute("/shop/$productId")({
+  head: ({ params }) => productHead(PRODUCTS_BY_ID[params.productId]),
+  component: ProductPage,
+});
 
 function ProductPage() {
   const { productId } = Route.useParams();
@@ -35,6 +40,7 @@ function ProductPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
+      <SeoJsonLd data={productJsonLd(product)} />
       <Link to="/shop" search={{ cat: product.category }} className="text-sm text-accent">
         Back to {product.category}
       </Link>

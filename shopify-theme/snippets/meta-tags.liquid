@@ -1,7 +1,7 @@
 <meta property="og:site_name" content="{{ shop.name | escape }}">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta property="og:title" content="{{ page_title | escape }}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{% if request.page_type == 'product' %}product{% else %}website{% endif %}">
 {%- if page_description -%}
   <meta property="og:description" content="{{ page_description | escape }}">
 {%- endif -%}
@@ -15,4 +15,11 @@
 <meta name="twitter:title" content="{{ page_title | escape }}">
 {%- if page_description -%}
   <meta name="twitter:description" content="{{ page_description | escape }}">
+{%- endif -%}
+{%- if request.page_type == 'product' -%}
+  <meta name="keywords" content="{{ product.title | escape }}, {{ product.type | escape }}, {{ product.tags | join: ', ' | escape }}, silk lingerie, Femme Silk Moments">
+{%- elsif request.page_type == 'collection' -%}
+  <meta name="keywords" content="{{ collection.title | escape }}, silk lingerie, jewel tone lingerie, Femme Silk Moments, cash on delivery lingerie">
+{%- else -%}
+  <meta name="keywords" content="silk lingerie, jewel tone lingerie, silk babydoll, lace teddy, silk nightgown, bridal lingerie, silk robe, wireless bra, t-shirt bra, lace bralette, cash on delivery lingerie, Femme Silk Moments, exotic silk">
 {%- endif -%}
