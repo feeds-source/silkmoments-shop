@@ -9,13 +9,13 @@ import { PRODUCTS } from "@/lib/catalog";
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  const featured = PRODUCTS.filter((p) => p.tag);
+  const featured = PRODUCTS.filter((p) => p.tag).slice(0, 6);
 
   return (
     <main>
       <CinematicHero />
 
-      <section className="mx-auto max-w-6xl px-4 py-10">
+      <section className="mx-auto max-w-6xl px-4 py-14">
         <div className="grid gap-6 rounded-xl border border-line bg-surface/80 px-5 py-6 sm:grid-cols-2 lg:grid-cols-4">
           {TRUST.map((t) => (
             <div key={t.title} className="flex gap-3">

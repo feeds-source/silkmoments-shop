@@ -97,12 +97,12 @@ function SizeGuide() {
       </PageHero>
 
       <nav className="sticky top-16 z-20 border-y border-accent/20 bg-bg/90 backdrop-blur-md print:hidden">
-        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3">
+        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none] snap-x snap-mandatory [&::-webkit-scrollbar]:hidden">
           {GUIDE_NAV.map((c) => (
             <a
               key={c.id}
               href={`#${c.id}`}
-              className="inline-flex h-11 shrink-0 items-center rounded-full border border-line px-4 text-2xs uppercase tracking-wider text-muted hover:border-accent hover:text-accent"
+              className="inline-flex h-11 shrink-0 snap-start items-center rounded-full border border-line px-4 text-2xs uppercase tracking-wider text-muted hover:border-accent hover:text-accent"
             >
               {c.kicker}
             </a>

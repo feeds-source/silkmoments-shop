@@ -47,7 +47,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
             <span className="font-display text-lg italic tracking-[0.18em] text-accent sm:text-xl sm:tracking-[0.32em]">FEMME</span>
             <span className="mt-1 hidden text-2xs uppercase tracking-[0.28em] text-muted min-[380px]:block">Silk Atelier</span>
           </Link>
-          <nav className="hidden min-w-0 items-center gap-1 lg:flex">
+          <nav className="hidden min-w-0 flex-1 items-center justify-evenly px-1 lg:flex">
             <NavLink to="/shop" label="Shop" active={path.startsWith("/shop") && !roomOn} />
             <RoomLink label="Sleep" room="Sleep" active={roomOn === "Sleep"} />
             <RoomLink label="Lingerie" room="Lingerie" active={roomOn === "Lingerie"} />
@@ -183,7 +183,7 @@ function RoomLink({
       to="/shop"
       search={{ room }}
       onClick={onClick}
-      className={`inline-flex h-11 items-center px-3 text-xs uppercase tracking-[0.2em] transition-colors duration-150 ${
+      className={`inline-flex h-11 items-center justify-center px-2.5 text-2xs uppercase tracking-[0.16em] transition-colors duration-150 ${
         active ? "text-accent" : "text-muted hover:text-accent"
       }`}
     >
@@ -207,7 +207,7 @@ function NavLink({
     <Link
       to={to}
       onClick={onClick}
-      className={`inline-flex h-11 items-center px-3 text-xs uppercase tracking-[0.2em] transition-colors duration-150 ${
+      className={`inline-flex h-11 items-center justify-center px-2.5 text-2xs uppercase tracking-[0.16em] transition-colors duration-150 ${
         active ? "text-accent" : "text-muted hover:text-accent"
       }`}
     >

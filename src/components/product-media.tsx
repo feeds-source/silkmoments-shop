@@ -9,7 +9,15 @@ export function ProductMedia({
 }) {
   return (
     <div className={`relative overflow-hidden bg-elevated ${className}`}>
-      <img src={product.image} alt="" className="ken absolute inset-0 h-full w-full object-cover" />
+      <img
+        src={product.image}
+        alt=""
+        className="ken absolute inset-0 h-full w-full object-cover"
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = "/banners/hero.jpg";
+        }}
+      />
       {product.video && (
         <video
           className="motion-video absolute inset-0 h-full w-full object-cover"

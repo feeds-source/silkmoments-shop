@@ -82,13 +82,13 @@ function Shop() {
       ) : null}
 
       <nav className="sticky top-16 z-20 border-y border-accent/20 bg-bg/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3">
+        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none] snap-x snap-mandatory [&::-webkit-scrollbar]:hidden">
           {CATEGORIES.map((c) => (
             <Link
               key={c}
               to="/shop"
               search={c === "All" ? {} : { cat: c }}
-              className={`inline-flex h-11 shrink-0 items-center rounded-full border px-3 text-2xs uppercase tracking-wider md:px-4 md:text-xs ${
+              className={`inline-flex h-11 shrink-0 snap-start items-center rounded-full border px-4 text-2xs uppercase tracking-wider ${
                 current === c ? "border-blush bg-blush text-fg" : "border-line text-muted"
               }`}
             >
@@ -113,7 +113,7 @@ function Shop() {
         ) : (
           <div className="mt-8 grid-shop">
             {list.map((p) => (
-              <ProductCard key={p.id} product={p} wide={Boolean(p.tag)} />
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
         )}
